@@ -122,7 +122,7 @@ h1 {
   margin-top: 16px;
   padding: 14px;
   display: grid;
-  grid-template-columns: minmax(260px, 1.5fr) repeat(2, minmax(180px, 0.8fr)) auto;
+  grid-template-columns: minmax(260px, 1.4fr) repeat(3, minmax(170px, 0.75fr)) auto;
   gap: 12px;
   align-items: end;
 }
@@ -340,15 +340,19 @@ h1 {
 }
 
 .state-path {
-  fill: #d7e1d4;
-  stroke: #93a18f;
-  stroke-width: 1.05;
+  fill: none;
+  stroke: #8d9d89;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
 .rail-network-path {
   fill: none;
-  stroke: rgba(67, 101, 122, 0.18);
-  stroke-width: 0.85;
+  stroke: rgba(67, 101, 122, 0.22);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .route-map-line {

@@ -8,7 +8,8 @@ var state = {
   routes: [],
   filtered: [],
   selectedId: null,
-  renderData: null
+  renderData: null,
+  mapMode: "all"
 };
 
 var dom = {
@@ -16,6 +17,7 @@ var dom = {
   search: document.getElementById("search-input"),
   originFilter: document.getElementById("origin-filter"),
   destinationFilter: document.getElementById("destination-filter"),
+  mapMode: document.getElementById("map-mode"),
   reset: document.getElementById("reset-filters"),
   routeList: document.getElementById("route-list"),
   resultLabel: document.getElementById("result-label"),
@@ -255,11 +257,15 @@ function renderRouteLines() {
   clearLayer(layers.labels);
 
   state.routes.forEach(function (route) {
+    var shouldShow = state.mapMode === "all"
+      ? !!visibleIds[route.id]
+      : route.id === state.selectedId;
     var path = svgEl("path", {
-      d: route.projected.path,
+      d: "M " + route.projected.origin[0] + " " + route.projected.origin[1] +
+        " L " + route.projected.destination[0] + " " + route.projected.destination[1],
       class: "route-map-line " +
         (route.interstate ? "interstate " : "intrastate ") +
-        (visibleIds[route.id] ? "" : "dimmed ") +
+        (shouldShow ? "" : "dimmed ") +
         (route.id === state.selectedId ? "active" : "")
     });
 
@@ -314,10 +320,17 @@ function wireEvents() {
     element.addEventListener("change", applyFilters);
   });
 
+  dom.mapMode.addEventListener("change", function () {
+    state.mapMode = dom.mapMode.value;
+    renderRouteLines();
+  });
+
   dom.reset.addEventListener("click", function () {
     dom.search.value = "";
     dom.originFilter.value = "";
     dom.destinationFilter.value = "";
+    dom.mapMode.value = "all";
+    state.mapMode = "all";
     applyFilters();
   });
 }
