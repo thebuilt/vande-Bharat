@@ -115,7 +115,10 @@ function setSummaryStats(routes) {
     states.add(route.originState);
     states.add(route.destinationState);
   });
-  const longest = routes.reduce((best, route) => (route.distanceKm > (best?.distanceKm || 0) ? route : best), null);
+  const longest = routes.reduce((best, route) => {
+    const bestDistance = best ? best.distanceKm : 0;
+    return route.distanceKm > bestDistance ? route : best;
+  }, null);
 
   dom.statRoutes.textContent = routes.length;
   dom.statStates.textContent = states.size;
@@ -161,7 +164,7 @@ function applyFilters() {
   });
 
   if (!state.filtered.some((route) => route.id === state.selectedId)) {
-    state.selectedId = state.filtered[0]?.id || null;
+    state.selectedId = state.filtered.length ? state.filtered[0].id : null;
   }
 
   renderRouteList();
@@ -341,7 +344,7 @@ async function init() {
   state.railwayGeo = railwayGeo;
   state.routes = routes.map(enrichRoute);
   state.filtered = [...state.routes];
-  state.selectedId = state.routes[0]?.id || null;
+  state.selectedId = state.routes.length ? state.routes[0].id : null;
 
   projection.fitExtent([[24, 24], [CONFIG.width - 24, CONFIG.height - 24]], indiaGeo);
 
@@ -351,7 +354,7 @@ async function init() {
     .attr("class", "state-path")
     .attr("d", path);
 
-  if (railwayGeo?.features?.length) {
+  if (railwayGeo && railwayGeo.features && railwayGeo.features.length) {
     networkLayer.selectAll("path")
       .data(railwayGeo.features)
       .join("path")
