@@ -19,6 +19,9 @@ var dom = {
   destinationFilter: document.getElementById("destination-filter"),
   mapMode: document.getElementById("map-mode"),
   reset: document.getElementById("reset-filters"),
+  zoomIn: document.getElementById("zoom-in"),
+  zoomOut: document.getElementById("zoom-out"),
+  zoomReset: document.getElementById("zoom-reset"),
   routeList: document.getElementById("route-list"),
   resultLabel: document.getElementById("result-label"),
   detailTitle: document.getElementById("detail-title"),
@@ -35,7 +38,15 @@ var layers = {
   railways: null,
   routes: null,
   stations: null,
-  labels: null
+  labels: null,
+  viewport: null
+};
+
+var zoomState = {
+  scale: 1,
+  min: 1,
+  max: 6,
+  step: 1.25
 };
 
 function svgEl(tag, attrs) {
@@ -251,6 +262,18 @@ function clearLayer(node) {
   }
 }
 
+function applyZoom() {
+  if (!layers.viewport) {
+    return;
+  }
+  layers.viewport.setAttribute("transform", "scale(" + zoomState.scale + ")");
+}
+
+function setZoom(nextScale) {
+  zoomState.scale = Math.max(zoomState.min, Math.min(zoomState.max, nextScale));
+  applyZoom();
+}
+
 function renderRouteLines() {
   var visibleIds = {};
   var selectedRoute = null;
@@ -332,12 +355,25 @@ function wireEvents() {
     renderRouteLines();
   });
 
+  dom.zoomIn.addEventListener("click", function () {
+    setZoom(zoomState.scale * zoomState.step);
+  });
+
+  dom.zoomOut.addEventListener("click", function () {
+    setZoom(zoomState.scale / zoomState.step);
+  });
+
+  dom.zoomReset.addEventListener("click", function () {
+    setZoom(1);
+  });
+
   dom.reset.addEventListener("click", function () {
     dom.search.value = "";
     dom.originFilter.value = "";
     dom.destinationFilter.value = "";
     dom.mapMode.value = "all";
     state.mapMode = "all";
+    setZoom(1);
     applyFilters();
   });
 }
@@ -345,17 +381,19 @@ function wireEvents() {
 function initSvg(renderData) {
   dom.map.setAttribute("viewBox", "0 0 " + renderData.width + " " + renderData.height);
 
+  layers.viewport = svgEl("g", {});
   layers.states = svgEl("g", {});
   layers.railways = svgEl("g", {});
   layers.routes = svgEl("g", {});
   layers.stations = svgEl("g", {});
   layers.labels = svgEl("g", {});
 
-  dom.map.appendChild(layers.states);
-  dom.map.appendChild(layers.railways);
-  dom.map.appendChild(layers.routes);
-  dom.map.appendChild(layers.stations);
-  dom.map.appendChild(layers.labels);
+  dom.map.appendChild(layers.viewport);
+  layers.viewport.appendChild(layers.states);
+  layers.viewport.appendChild(layers.railways);
+  layers.viewport.appendChild(layers.routes);
+  layers.viewport.appendChild(layers.stations);
+  layers.viewport.appendChild(layers.labels);
 
   renderData.states.forEach(function (entry) {
     layers.states.appendChild(svgEl("path", {
@@ -370,6 +408,8 @@ function initSvg(renderData) {
       class: "rail-network-path"
     }));
   });
+
+  applyZoom();
 }
 
 function init() {

@@ -78,9 +78,16 @@
             <p id="result-label">Showing all routes.</p>
             <p id="map-error" class="map-error" hidden></p>
           </div>
-          <div class="legend">
-            <span><i class="legend-dot interstate"></i>Inter-state</span>
-            <span><i class="legend-dot intrastate"></i>Intra-state</span>
+          <div class="map-tools">
+            <div class="legend">
+              <span><i class="legend-dot interstate"></i>Inter-state</span>
+              <span><i class="legend-dot intrastate"></i>Intra-state</span>
+            </div>
+            <div class="zoom-controls" aria-label="Map zoom controls">
+              <button id="zoom-in" class="zoom-btn" type="button" aria-label="Zoom in">+</button>
+              <button id="zoom-out" class="zoom-btn" type="button" aria-label="Zoom out">-</button>
+              <button id="zoom-reset" class="zoom-btn zoom-reset" type="button" aria-label="Reset zoom">Reset</button>
+            </div>
           </div>
         </div>
         <svg id="route-map" viewBox="0 0 960 760" aria-label="Vande Bharat route map"></svg>
