@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vande Bharat Route Atlas</title>
+  <meta
+    name="description"
+    content="Interactive map of Vande Bharat Express routes using the attached train list."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Interactive Rail Map</p>
+        <h1>Vande Bharat Route Atlas</h1>
+        <p class="intro">
+          Click any route arc or route card to inspect train number, endpoints, connected states,
+          distance, and published journey time.
+        </p>
+      </div>
+      <div class="hero-stats">
+        <article class="stat-card">
+          <span class="stat-label">Routes</span>
+          <strong id="stat-routes">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">States/UTs</span>
+          <strong id="stat-states">0</strong>
+        </article>
+        <article class="stat-card">
+          <span class="stat-label">Longest</span>
+          <strong id="stat-longest">-</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <label class="field">
+        <span>Search</span>
+        <input id="search-input" type="search" placeholder="Train no., origin, destination, state" />
+      </label>
+      <label class="field">
+        <span>Origin State</span>
+        <select id="origin-filter">
+          <option value="">All origin states</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Destination State</span>
+        <select id="destination-filter">
+          <option value="">All destination states</option>
+        </select>
+      </label>
+      <button id="reset-filters" class="ghost-button" type="button">Reset</button>
+    </section>
+
+    <section class="layout">
+      <div class="map-panel">
+        <div class="panel-head">
+          <div>
+            <h2>India Route Map</h2>
+            <p id="result-label">Showing all routes.</p>
+          </div>
+          <div class="legend">
+            <span><i class="legend-dot interstate"></i>Inter-state</span>
+            <span><i class="legend-dot intrastate"></i>Intra-state</span>
+          </div>
+        </div>
+        <svg id="route-map" viewBox="0 0 960 760" aria-label="Vande Bharat route map"></svg>
+      </div>
+
+      <aside class="side-panel">
+        <section class="detail-card">
+          <div class="detail-head">
+            <p class="detail-kicker">Route Details</p>
+            <h2 id="detail-title">Select a route</h2>
+          </div>
+          <p id="detail-subtitle" class="detail-subtitle">
+            Click a line on the map or a route in the list to inspect it here.
+          </p>
+          <dl id="detail-grid" class="detail-grid"></dl>
+        </section>
+
+        <section class="list-card">
+          <div class="panel-head compact">
+            <div>
+              <h2>Routes</h2>
+              <p>Filtered route list</p>
+            </div>
+          </div>
+          <div id="route-list" class="route-list" role="list"></div>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="footnote">
+      Route list from the attached PDF. Distance and journey time are matched against the India Today
+      Vande Bharat service table. Endpoint coordinates are mapped at city/station level for visualization.
+    </footer>
+  </main>
+
+  <script src="../medlit-scienceofasbestos/vendor/d3.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
