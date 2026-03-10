@@ -266,6 +266,12 @@ h1 {
   border-radius: 22px;
   border: 1px solid rgba(86, 123, 143, 0.14);
   overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+}
+
+#route-map.is-dragging {
+  cursor: grabbing;
 }
 
 .side-panel {

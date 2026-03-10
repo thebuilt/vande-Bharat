@@ -53,6 +53,14 @@ var zoomState = {
   step: 1.35
 };
 
+var panState = {
+  active: false,
+  startX: 0,
+  startY: 0,
+  originX: 0,
+  originY: 0
+};
+
 function svgEl(tag, attrs) {
   var node = document.createElementNS(SVG_NS, tag);
   var key;
@@ -320,6 +328,22 @@ function resetZoom() {
   applyZoom();
 }
 
+function panByPixels(deltaX, deltaY) {
+  var unitsPerPixelX = zoomState.width / dom.map.clientWidth;
+  var unitsPerPixelY = zoomState.height / dom.map.clientHeight;
+  zoomState.x = clamp(
+    panState.originX - (deltaX * unitsPerPixelX),
+    0,
+    zoomState.baseWidth - zoomState.width
+  );
+  zoomState.y = clamp(
+    panState.originY - (deltaY * unitsPerPixelY),
+    0,
+    zoomState.baseHeight - zoomState.height
+  );
+  applyZoom();
+}
+
 function zoomToRoute(routeId) {
   var route = state.routes.find(function (entry) {
     return entry.id === routeId;
@@ -446,6 +470,45 @@ function wireEvents() {
 
   dom.zoomReset.addEventListener("click", function () {
     resetZoom();
+  });
+
+  dom.map.addEventListener("pointerdown", function (event) {
+    if (currentScale() <= 1) {
+      return;
+    }
+    panState.active = true;
+    panState.startX = event.clientX;
+    panState.startY = event.clientY;
+    panState.originX = zoomState.x;
+    panState.originY = zoomState.y;
+    dom.map.classList.add("is-dragging");
+    dom.map.setPointerCapture(event.pointerId);
+  });
+
+  dom.map.addEventListener("pointermove", function (event) {
+    if (!panState.active) {
+      return;
+    }
+    panByPixels(event.clientX - panState.startX, event.clientY - panState.startY);
+  });
+
+  dom.map.addEventListener("pointerup", function (event) {
+    if (!panState.active) {
+      return;
+    }
+    panState.active = false;
+    dom.map.classList.remove("is-dragging");
+    if (dom.map.hasPointerCapture(event.pointerId)) {
+      dom.map.releasePointerCapture(event.pointerId);
+    }
+  });
+
+  dom.map.addEventListener("pointerleave", function () {
+    if (!panState.active) {
+      return;
+    }
+    panState.active = false;
+    dom.map.classList.remove("is-dragging");
   });
 
   dom.reset.addEventListener("click", function () {
