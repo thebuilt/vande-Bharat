@@ -87,6 +87,10 @@ function enrichRoute(route) {
   return route;
 }
 
+function formatDistance(distanceKm) {
+  return typeof distanceKm === "number" ? (distanceKm + " km") : "Distance unavailable";
+}
+
 function setSummaryStats(routes) {
   var statesSeen = {};
   var longest = null;
@@ -95,7 +99,7 @@ function setSummaryStats(routes) {
   for (i = 0; i < routes.length; i += 1) {
     statesSeen[routes[i].originState] = true;
     statesSeen[routes[i].destinationState] = true;
-    if (!longest || routes[i].distanceKm > longest.distanceKm) {
+    if (typeof routes[i].distanceKm === "number" && (!longest || routes[i].distanceKm > longest.distanceKm)) {
       longest = routes[i];
     }
   }
@@ -190,7 +194,7 @@ function renderRouteList() {
           (route.interstate ? "Inter-state" : "Intra-state") +
         "</span>" +
       "</div>" +
-      '<p class="route-meta">' + route.distanceKm + " km · " + route.journeyTime + " · " + route.originState + " to " + route.destinationState + "</p>";
+      '<p class="route-meta">' + formatDistance(route.distanceKm) + " · " + route.journeyTime + " · " + route.originState + " to " + route.destinationState + "</p>";
 
     article.addEventListener("click", function () {
       selectRoute(route.id);
@@ -228,8 +232,11 @@ function renderDetails() {
     ["Destination", route.destination],
     ["Origin State", route.originState],
     ["Destination State", route.destinationState],
-    ["Distance", route.distanceKm + " km"],
+    ["Distance", formatDistance(route.distanceKm)],
     ["Journey Time", route.journeyTime],
+    ["Days", route.daysOfService || "-"],
+    ["Departure", route.departureTime || "-"],
+    ["Arrival", route.arrivalTime || "-"],
     ["Map Type", route.interstate ? "Inter-state connection" : "Intra-state connection"]
   ];
 

@@ -7,39 +7,110 @@
     "originState": "Rajasthan",
     "destinationState": "Gujarat",
     "distanceKm": 455,
-    "journeyTime": "6h 30m",
-    "originCoords": [26.2389, 73.0243],
-    "destinationCoords": [23.0715, 72.588],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 00m",
+    "daysOfService": "Except Tu",
+    "departureTime": "06.05",
+    "arrivalTime": "12.05",
+    "originCoords": [
+      26.2389,
+      73.0243
+    ],
+    "destinationCoords": [
+      23.0715,
+      72.588
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
     "index": 2,
+    "trainNumber": "20101/02",
+    "origin": "Nagpur",
+    "destination": "Secunderabad",
+    "originState": "Maharashtra",
+    "destinationState": "Telangana",
+    "distanceKm": null,
+    "journeyTime": "7h 15m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.00",
+    "arrivalTime": "12.15",
+    "originCoords": [
+      21.1458,
+      79.0882
+    ],
+    "destinationCoords": [
+      17.4399,
+      78.4983
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 3,
     "trainNumber": "20171/72",
     "origin": "Rani Kamlapati",
     "destination": "Hazrat Nizamuddin",
     "originState": "Madhya Pradesh",
     "destinationState": "Delhi",
     "distanceKm": 701,
-    "journeyTime": "7h 30m",
-    "originCoords": [23.2339, 77.4346],
-    "destinationCoords": [28.588, 77.253],
-    "source": "Attached PDF route list + India Today service table"
-  },
-  {
-    "index": 3,
-    "trainNumber": "20173/74",
-    "origin": "Rewa",
-    "destination": "Rani Kamlapati",
-    "originState": "Madhya Pradesh",
-    "destinationState": "Madhya Pradesh",
-    "distanceKm": 555,
-    "journeyTime": "8h 10m",
-    "originCoords": [24.5362, 81.3037],
-    "destinationCoords": [23.2339, 77.4346],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 36m",
+    "daysOfService": "Except Sat",
+    "departureTime": "05.40",
+    "arrivalTime": "13.16",
+    "originCoords": [
+      23.2339,
+      77.4346
+    ],
+    "destinationCoords": [
+      28.588,
+      77.253
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
     "index": 4,
+    "trainNumber": "20173/74",
+    "origin": "Rani Kamlapati",
+    "destination": "Rewa",
+    "originState": "Madhya Pradesh",
+    "destinationState": "Madhya Pradesh",
+    "distanceKm": 555,
+    "journeyTime": "8h 05m",
+    "daysOfService": "Except Tu",
+    "departureTime": "15.30",
+    "arrivalTime": "23.35",
+    "originCoords": [
+      23.2339,
+      77.4346
+    ],
+    "destinationCoords": [
+      24.5362,
+      81.3037
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 5,
+    "trainNumber": "20176/75",
+    "origin": "Agra Cantt.",
+    "destination": "Banaras",
+    "originState": "Uttar Pradesh",
+    "destinationState": "Uttar Pradesh",
+    "distanceKm": null,
+    "journeyTime": "7h 00m",
+    "daysOfService": "Except F",
+    "departureTime": "06.00",
+    "arrivalTime": "13.00",
+    "originCoords": [
+      27.1577,
+      77.989
+    ],
+    "destinationCoords": [
+      25.3176,
+      82.9739
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 6,
     "trainNumber": "20607/08",
     "origin": "Chennai Central",
     "destination": "Mysuru",
@@ -47,90 +118,175 @@
     "destinationState": "Karnataka",
     "distanceKm": 497,
     "journeyTime": "6h 30m",
-    "originCoords": [13.0827, 80.2755],
-    "destinationCoords": [12.2958, 76.6394],
-    "source": "Attached PDF route list + India Today service table"
-  },
-  {
-    "index": 5,
-    "trainNumber": "20631/32",
-    "origin": "Mangalore",
-    "destination": "Thiruvananthapuram",
-    "originState": "Karnataka",
-    "destinationState": "Kerala",
-    "distanceKm": 502,
-    "journeyTime": "8h 50m",
-    "originCoords": [12.9141, 74.856],
-    "destinationCoords": [8.4875, 76.9525],
-    "source": "Attached PDF route list + India Today service table"
-  },
-  {
-    "index": 6,
-    "trainNumber": "20633/34",
-    "origin": "Thiruvananthapuram",
-    "destination": "Kasaragod",
-    "originState": "Kerala",
-    "destinationState": "Kerala",
-    "distanceKm": 585,
-    "journeyTime": "8h 05m",
-    "originCoords": [8.4875, 76.9525],
-    "destinationCoords": [12.4996, 74.9869],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Wed",
+    "departureTime": "05.50",
+    "arrivalTime": "12.20",
+    "originCoords": [
+      13.0827,
+      80.2755
+    ],
+    "destinationCoords": [
+      12.2958,
+      76.6394
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
     "index": 7,
-    "trainNumber": "20641/42",
-    "origin": "Coimbatore",
-    "destination": "Bengaluru",
+    "trainNumber": "20627/28",
+    "origin": "Chennai Egmore",
+    "destination": "Nagercoil Jn.",
     "originState": "Tamil Nadu",
-    "destinationState": "Karnataka",
-    "distanceKm": 364,
-    "journeyTime": "5h 50m",
-    "originCoords": [11.0168, 76.9558],
-    "destinationCoords": [12.9716, 77.5946],
-    "source": "Attached PDF route list + India Today service table"
+    "destinationState": "Tamil Nadu",
+    "distanceKm": null,
+    "journeyTime": "8h 40m",
+    "daysOfService": "Except Wed",
+    "departureTime": "05.00",
+    "arrivalTime": "13.40",
+    "originCoords": [
+      13.0797,
+      80.2619
+    ],
+    "destinationCoords": [
+      8.1833,
+      77.4119
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
     "index": 8,
+    "trainNumber": "20631/32",
+    "origin": "Mangalore Central",
+    "destination": "Thiruvananthapuram",
+    "originState": "Karnataka",
+    "destinationState": "Kerala",
+    "distanceKm": null,
+    "journeyTime": "8h 40m",
+    "daysOfService": "Except Wed",
+    "departureTime": "06.25",
+    "arrivalTime": "15.05",
+    "originCoords": [
+      12.8698,
+      74.8436
+    ],
+    "destinationCoords": [
+      8.4875,
+      76.9525
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 9,
+    "trainNumber": "20633/34",
+    "origin": "Kasaragod",
+    "destination": "Thiruvananthapuram",
+    "originState": "Kerala",
+    "destinationState": "Kerala",
+    "distanceKm": 585,
+    "journeyTime": "8h 10m",
+    "daysOfService": "Except Th",
+    "departureTime": "14.30",
+    "arrivalTime": "22.40",
+    "originCoords": [
+      12.4996,
+      74.9869
+    ],
+    "destinationCoords": [
+      8.4875,
+      76.9525
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 10,
+    "trainNumber": "20641/42",
+    "origin": "Bengaluru Cantt",
+    "destination": "Coimbatore",
+    "originState": "Karnataka",
+    "destinationState": "Tamil Nadu",
+    "distanceKm": null,
+    "journeyTime": "6h 30m",
+    "daysOfService": "Except Th",
+    "departureTime": "14.15",
+    "arrivalTime": "20.45",
+    "originCoords": [
+      12.9975,
+      77.5928
+    ],
+    "destinationCoords": [
+      11.0168,
+      76.9558
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 11,
     "trainNumber": "20643/44",
     "origin": "Chennai Central",
     "destination": "Coimbatore",
     "originState": "Tamil Nadu",
     "destinationState": "Tamil Nadu",
     "distanceKm": 495,
-    "journeyTime": "5h 50m",
-    "originCoords": [13.0827, 80.2755],
-    "destinationCoords": [11.0168, 76.9558],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 00m",
+    "daysOfService": "Except Wed",
+    "departureTime": "14.15",
+    "arrivalTime": "20.15",
+    "originCoords": [
+      13.0827,
+      80.2755
+    ],
+    "destinationCoords": [
+      11.0168,
+      76.9558
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 9,
+    "index": 12,
     "trainNumber": "20645/46",
-    "origin": "Mangalore",
-    "destination": "Madgaon",
-    "originState": "Karnataka",
-    "destinationState": "Goa",
-    "distanceKm": 319,
-    "journeyTime": "4h 15m",
-    "originCoords": [12.9141, 74.856],
-    "destinationCoords": [15.2993, 73.9862],
-    "source": "Attached PDF route list + India Today service table"
+    "origin": "Madgaon",
+    "destination": "Mangaluru",
+    "originState": "Goa",
+    "destinationState": "Karnataka",
+    "distanceKm": null,
+    "journeyTime": "4h 35m",
+    "daysOfService": "Except Th",
+    "departureTime": "18.10",
+    "arrivalTime": "22.45",
+    "originCoords": [
+      15.2993,
+      73.9862
+    ],
+    "destinationCoords": [
+      12.9141,
+      74.856
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 10,
+    "index": 13,
     "trainNumber": "20661/62",
-    "origin": "Bengaluru",
+    "origin": "KSR Bengaluru",
     "destination": "Dharwad",
     "originState": "Karnataka",
     "destinationState": "Karnataka",
-    "distanceKm": 489,
-    "journeyTime": "6h 25m",
-    "originCoords": [12.9716, 77.5946],
-    "destinationCoords": [15.4589, 75.0078],
-    "source": "Attached PDF route list + India Today service table"
+    "distanceKm": null,
+    "journeyTime": "6h 15m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.45",
+    "arrivalTime": "12.00",
+    "originCoords": [
+      12.9784,
+      77.5721
+    ],
+    "destinationCoords": [
+      15.4589,
+      75.0078
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 11,
+    "index": 14,
     "trainNumber": "20663/64",
     "origin": "Mysuru",
     "destination": "Chennai Central",
@@ -138,51 +294,153 @@
     "destinationState": "Tamil Nadu",
     "distanceKm": 497,
     "journeyTime": "6h 30m",
-    "originCoords": [12.2958, 76.6394],
-    "destinationCoords": [13.0827, 80.2755],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Th",
+    "departureTime": "06.00",
+    "arrivalTime": "12.30",
+    "originCoords": [
+      12.2958,
+      76.6394
+    ],
+    "destinationCoords": [
+      13.0827,
+      80.2755
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 12,
+    "index": 15,
     "trainNumber": "20665/66",
-    "origin": "Tirunelveli",
-    "destination": "Chennai Egmore",
+    "origin": "Chennai Egmore",
+    "destination": "Tirunelveli",
     "originState": "Tamil Nadu",
     "destinationState": "Tamil Nadu",
     "distanceKm": 650,
-    "journeyTime": "8h 50m",
-    "originCoords": [8.7139, 77.7567],
-    "destinationCoords": [13.0797, 80.2619],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 45m",
+    "daysOfService": "Except Tu",
+    "departureTime": "15.05",
+    "arrivalTime": "22.50",
+    "originCoords": [
+      13.0797,
+      80.2619
+    ],
+    "destinationCoords": [
+      8.7139,
+      77.7567
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 13,
+    "index": 16,
     "trainNumber": "20677/78",
     "origin": "Chennai Central",
-    "destination": "Vijayawada",
+    "destination": "Narasapur",
     "originState": "Tamil Nadu",
     "destinationState": "Andhra Pradesh",
-    "distanceKm": 518,
-    "journeyTime": "6h 40m",
-    "originCoords": [13.0827, 80.2755],
-    "destinationCoords": [16.5062, 80.648],
-    "source": "Attached PDF route list + India Today service table"
+    "distanceKm": null,
+    "journeyTime": "8h 40m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.30",
+    "arrivalTime": "14.10",
+    "originCoords": [
+      13.0827,
+      80.2755
+    ],
+    "destinationCoords": [
+      16.4344,
+      81.7014
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 14,
+    "index": 17,
+    "trainNumber": "20669/70",
+    "origin": "SSS Hubballi",
+    "destination": "Pune",
+    "originState": "Karnataka",
+    "destinationState": "Maharashtra",
+    "distanceKm": null,
+    "journeyTime": "8h 30m",
+    "daysOfService": "W, F, Su",
+    "departureTime": "05.00",
+    "arrivalTime": "13.30",
+    "originCoords": [
+      15.3647,
+      75.124
+    ],
+    "destinationCoords": [
+      18.5204,
+      73.8567
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 18,
+    "trainNumber": "20671/72",
+    "origin": "Madurai",
+    "destination": "Bengaluru Cantt",
+    "originState": "Tamil Nadu",
+    "destinationState": "Karnataka",
+    "distanceKm": null,
+    "journeyTime": "7h 45m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.15",
+    "arrivalTime": "13.00",
+    "originCoords": [
+      9.9252,
+      78.1198
+    ],
+    "destinationCoords": [
+      12.9975,
+      77.5928
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 19,
+    "trainNumber": "20673/74",
+    "origin": "Kolhapur",
+    "destination": "Pune",
+    "originState": "Maharashtra",
+    "destinationState": "Maharashtra",
+    "distanceKm": null,
+    "journeyTime": "5h 15m",
+    "daysOfService": "M,Th,Sa",
+    "departureTime": "08.15",
+    "arrivalTime": "13.30",
+    "originCoords": [
+      16.705,
+      74.2433
+    ],
+    "destinationCoords": [
+      18.5204,
+      73.8567
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 20,
     "trainNumber": "20701/02",
     "origin": "Secunderabad",
     "destination": "Tirupati",
     "originState": "Telangana",
     "destinationState": "Andhra Pradesh",
     "distanceKm": 661,
-    "journeyTime": "8h 30m",
-    "originCoords": [17.4399, 78.4983],
-    "destinationCoords": [13.6288, 79.4192],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 15m",
+    "daysOfService": "Except Tu",
+    "departureTime": "06.15",
+    "arrivalTime": "14.30",
+    "originCoords": [
+      17.4399,
+      78.4983
+    ],
+    "destinationCoords": [
+      13.6288,
+      79.4192
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 15,
+    "index": 21,
     "trainNumber": "20703/04",
     "origin": "Kacheguda",
     "destination": "Yesvantpur",
@@ -190,38 +448,65 @@
     "destinationState": "Karnataka",
     "distanceKm": 610,
     "journeyTime": "8h 30m",
-    "originCoords": [17.3919, 78.489],
-    "destinationCoords": [13.028, 77.554],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except W",
+    "departureTime": "05.30",
+    "arrivalTime": "14.00",
+    "originCoords": [
+      17.3919,
+      78.489
+    ],
+    "destinationCoords": [
+      13.028,
+      77.554
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 16,
+    "index": 22,
     "trainNumber": "20705/06",
-    "origin": "Jalna",
+    "origin": "Nanded",
     "destination": "Mumbai CSMT",
     "originState": "Maharashtra",
     "destinationState": "Maharashtra",
-    "distanceKm": 432,
-    "journeyTime": "6h 30m",
-    "originCoords": [19.8347, 75.8816],
-    "destinationCoords": [18.9398, 72.8355],
-    "source": "Attached PDF route list + India Today service table"
+    "distanceKm": null,
+    "journeyTime": "9h 25m",
+    "daysOfService": "Except W",
+    "departureTime": "05.00",
+    "arrivalTime": "14.25",
+    "originCoords": [
+      19.1383,
+      77.321
+    ],
+    "destinationCoords": [
+      18.9398,
+      72.8355
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 17,
+    "index": 23,
     "trainNumber": "20707/08",
     "origin": "Secunderabad",
     "destination": "Visakhapatnam",
     "originState": "Telangana",
     "destinationState": "Andhra Pradesh",
-    "distanceKm": 699,
-    "journeyTime": "8h 30m",
-    "originCoords": [17.4399, 78.4983],
-    "destinationCoords": [17.6868, 83.2185],
-    "source": "Attached PDF route list + India Today service table"
+    "distanceKm": 698,
+    "journeyTime": "8h 40m",
+    "daysOfService": "Except Th",
+    "departureTime": "05.05",
+    "arrivalTime": "13.45",
+    "originCoords": [
+      17.4399,
+      78.4983
+    ],
+    "destinationCoords": [
+      17.6868,
+      83.2185
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 18,
+    "index": 24,
     "trainNumber": "20825/26",
     "origin": "Bilaspur",
     "destination": "Nagpur",
@@ -229,77 +514,219 @@
     "destinationState": "Maharashtra",
     "distanceKm": 412,
     "journeyTime": "5h 30m",
-    "originCoords": [22.0797, 82.1391],
-    "destinationCoords": [21.1458, 79.0882],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Sat",
+    "departureTime": "06.45",
+    "arrivalTime": "12.15",
+    "originCoords": [
+      22.0797,
+      82.1391
+    ],
+    "destinationCoords": [
+      21.1458,
+      79.0882
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 19,
+    "index": 25,
+    "trainNumber": "20829/30",
+    "origin": "Durg",
+    "destination": "Visakhapatnam",
+    "originState": "Chhattisgarh",
+    "destinationState": "Andhra Pradesh",
+    "distanceKm": null,
+    "journeyTime": "8h 05m",
+    "daysOfService": "Except Th",
+    "departureTime": "05.45",
+    "arrivalTime": "13.50",
+    "originCoords": [
+      21.1915,
+      81.2849
+    ],
+    "destinationCoords": [
+      17.6868,
+      83.2185
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 26,
     "trainNumber": "20833/34",
     "origin": "Visakhapatnam",
     "destination": "Secunderabad",
     "originState": "Andhra Pradesh",
     "destinationState": "Telangana",
     "distanceKm": 698,
-    "journeyTime": "8h 35m",
-    "originCoords": [17.6868, 83.2185],
-    "destinationCoords": [17.4399, 78.4983],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 30m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.45",
+    "arrivalTime": "14.15",
+    "originCoords": [
+      17.6868,
+      83.2185
+    ],
+    "destinationCoords": [
+      17.4399,
+      78.4983
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 20,
+    "index": 27,
     "trainNumber": "20835/36",
-    "origin": "Puri",
-    "destination": "Rourkela",
+    "origin": "Rourkela",
+    "destination": "Puri",
     "originState": "Odisha",
     "destinationState": "Odisha",
     "distanceKm": 505,
-    "journeyTime": "7h 45m",
-    "originCoords": [19.8135, 85.8312],
-    "destinationCoords": [22.2604, 84.8536],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 40m",
+    "daysOfService": "Except Sat",
+    "departureTime": "14.00",
+    "arrivalTime": "21.40",
+    "originCoords": [
+      22.2604,
+      84.8536
+    ],
+    "destinationCoords": [
+      19.8135,
+      85.8312
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 21,
+    "index": 28,
     "trainNumber": "20841/42",
     "origin": "Bhubaneswar",
     "destination": "Visakhapatnam",
     "originState": "Odisha",
     "destinationState": "Andhra Pradesh",
     "distanceKm": 445,
-    "journeyTime": "6h 25m",
-    "originCoords": [20.2961, 85.8245],
-    "destinationCoords": [17.6868, 83.2185],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "5h 45m",
+    "daysOfService": "Except M",
+    "departureTime": "05.15",
+    "arrivalTime": "11.00",
+    "originCoords": [
+      20.2961,
+      85.8245
+    ],
+    "destinationCoords": [
+      17.6868,
+      83.2185
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 22,
+    "index": 29,
+    "trainNumber": "20871/72",
+    "origin": "Howrah",
+    "destination": "Rourkela",
+    "originState": "West Bengal",
+    "destinationState": "Odisha",
+    "distanceKm": null,
+    "journeyTime": "6h 05m",
+    "daysOfService": "Except Tu",
+    "departureTime": "06.00",
+    "arrivalTime": "12.05",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      22.2604,
+      84.8536
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 30,
+    "trainNumber": "20893/94",
+    "origin": "Tatanagar",
+    "destination": "Patna",
+    "originState": "Jharkhand",
+    "destinationState": "Bihar",
+    "distanceKm": null,
+    "journeyTime": "7h 20m",
+    "daysOfService": "W, Th, F, Sa",
+    "departureTime": "05.25",
+    "arrivalTime": "12.45",
+    "originCoords": [
+      22.8046,
+      86.2029
+    ],
+    "destinationCoords": [
+      25.5941,
+      85.1376
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 31,
     "trainNumber": "20887/88",
     "origin": "Ranchi",
     "destination": "Varanasi",
     "originState": "Jharkhand",
     "destinationState": "Uttar Pradesh",
     "distanceKm": 578,
-    "journeyTime": "7h 15m",
-    "originCoords": [23.3441, 85.3096],
-    "destinationCoords": [25.3176, 82.9739],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 50m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.10",
+    "arrivalTime": "13.00",
+    "originCoords": [
+      23.3441,
+      85.3096
+    ],
+    "destinationCoords": [
+      25.3176,
+      82.9739
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 23,
-    "trainNumber": "20897/98",
-    "origin": "Ranchi",
-    "destination": "Howrah",
+    "index": 32,
+    "trainNumber": "20891/92",
+    "origin": "Tatanagar",
+    "destination": "Brahmapur",
     "originState": "Jharkhand",
-    "destinationState": "West Bengal",
-    "distanceKm": 413,
-    "journeyTime": "6h 10m",
-    "originCoords": [23.3441, 85.3096],
-    "destinationCoords": [22.5958, 88.2636],
-    "source": "Attached PDF route list + India Today service table"
+    "destinationState": "Odisha",
+    "distanceKm": null,
+    "journeyTime": "9h 35m",
+    "daysOfService": "Except Tu",
+    "departureTime": "14.20",
+    "arrivalTime": "23.55",
+    "originCoords": [
+      22.8046,
+      86.2029
+    ],
+    "destinationCoords": [
+      19.3149,
+      84.7941
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 24,
+    "index": 33,
+    "trainNumber": "20897/98",
+    "origin": "Howrah",
+    "destination": "Ranchi",
+    "originState": "West Bengal",
+    "destinationState": "Jharkhand",
+    "distanceKm": 413,
+    "journeyTime": "7h 25m",
+    "daysOfService": "Except Tu",
+    "departureTime": "14.35",
+    "arrivalTime": "22.00",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      23.3441,
+      85.3096
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 34,
     "trainNumber": "20901/02",
     "origin": "Mumbai Central",
     "destination": "Gandhinagar Capital",
@@ -307,51 +734,153 @@
     "destinationState": "Gujarat",
     "distanceKm": 522,
     "journeyTime": "6h 30m",
-    "originCoords": [18.969, 72.8205],
-    "destinationCoords": [23.2156, 72.6369],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Wed",
+    "departureTime": "06.00",
+    "arrivalTime": "12.30",
+    "originCoords": [
+      18.969,
+      72.8205
+    ],
+    "destinationCoords": [
+      23.2156,
+      72.6369
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 25,
+    "index": 35,
     "trainNumber": "20911/12",
     "origin": "Indore",
     "destination": "Nagpur",
     "originState": "Madhya Pradesh",
     "destinationState": "Maharashtra",
     "distanceKm": 609,
-    "journeyTime": "8h 20m",
-    "originCoords": [22.7196, 75.8577],
-    "destinationCoords": [21.1458, 79.0882],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 25m",
+    "daysOfService": "Except Sun",
+    "departureTime": "06.10",
+    "arrivalTime": "14.35",
+    "originCoords": [
+      22.7196,
+      75.8577
+    ],
+    "destinationCoords": [
+      21.1458,
+      79.0882
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 26,
+    "index": 36,
     "trainNumber": "20977/78",
     "origin": "Ajmer",
     "destination": "Chandigarh",
     "originState": "Rajasthan",
     "destinationState": "Chandigarh",
     "distanceKm": 717,
-    "journeyTime": "8h 10m",
-    "originCoords": [26.4499, 74.6399],
-    "destinationCoords": [30.7333, 76.7794],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 35m",
+    "daysOfService": "Except Wed",
+    "departureTime": "06.10",
+    "arrivalTime": "14.45",
+    "originCoords": [
+      26.4499,
+      74.6399
+    ],
+    "destinationCoords": [
+      30.7333,
+      76.7794
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 27,
+    "index": 37,
     "trainNumber": "20979/80",
     "origin": "Udaipur",
     "destination": "Jaipur",
     "originState": "Rajasthan",
     "destinationState": "Rajasthan",
     "distanceKm": 435,
-    "journeyTime": "7h 45m",
-    "originCoords": [24.5854, 73.7125],
-    "destinationCoords": [26.9124, 75.7873],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 20m",
+    "daysOfService": "W, F, Su",
+    "departureTime": "07.50",
+    "arrivalTime": "14.10",
+    "originCoords": [
+      24.5854,
+      73.7125
+    ],
+    "destinationCoords": [
+      26.9124,
+      75.7873
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 28,
+    "index": 38,
+    "trainNumber": "20981/82",
+    "origin": "Udaipur City",
+    "destination": "Agar Cantt.",
+    "originState": "Rajasthan",
+    "destinationState": "Madhya Pradesh",
+    "distanceKm": null,
+    "journeyTime": "8h 45m",
+    "daysOfService": "M, Th, Sa",
+    "departureTime": "05.45",
+    "arrivalTime": "14.30",
+    "originCoords": [
+      24.576,
+      73.7087
+    ],
+    "destinationCoords": [
+      23.7118,
+      76.0157
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 39,
+    "trainNumber": "21893/94",
+    "origin": "Tatanagar",
+    "destination": "Patna",
+    "originState": "Jharkhand",
+    "destinationState": "Bihar",
+    "distanceKm": null,
+    "journeyTime": "10h 30m",
+    "daysOfService": "Su",
+    "departureTime": "05.25",
+    "arrivalTime": "15.55",
+    "originCoords": [
+      22.8046,
+      86.2029
+    ],
+    "destinationCoords": [
+      25.5941,
+      85.1376
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 40,
+    "trainNumber": "21895/96",
+    "origin": "Tatanagar",
+    "destination": "Patna",
+    "originState": "Jharkhand",
+    "destinationState": "Bihar",
+    "distanceKm": null,
+    "journeyTime": "7h 20m",
+    "daysOfService": "M",
+    "departureTime": "05.25",
+    "arrivalTime": "12.45",
+    "originCoords": [
+      22.8046,
+      86.2029
+    ],
+    "destinationCoords": [
+      25.5941,
+      85.1376
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 41,
     "trainNumber": "22223/24",
     "origin": "Mumbai CSMT",
     "destination": "Sainagar Shirdi",
@@ -359,25 +888,43 @@
     "destinationState": "Maharashtra",
     "distanceKm": 343,
     "journeyTime": "5h 20m",
-    "originCoords": [18.9398, 72.8355],
-    "destinationCoords": [19.7645, 74.4762],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Tu",
+    "departureTime": "06.20",
+    "arrivalTime": "11.40",
+    "originCoords": [
+      18.9398,
+      72.8355
+    ],
+    "destinationCoords": [
+      19.7645,
+      74.4762
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 29,
+    "index": 42,
     "trainNumber": "22225/26",
-    "origin": "Solapur",
-    "destination": "Mumbai CSMT",
+    "origin": "Mumbai CSMT",
+    "destination": "Solapur",
     "originState": "Maharashtra",
     "destinationState": "Maharashtra",
     "distanceKm": 455,
-    "journeyTime": "6h 30m",
-    "originCoords": [17.6599, 75.9064],
-    "destinationCoords": [18.9398, 72.8355],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 35m",
+    "daysOfService": "Except Wed",
+    "departureTime": "16.05",
+    "arrivalTime": "22.40",
+    "originCoords": [
+      18.9398,
+      72.8355
+    ],
+    "destinationCoords": [
+      17.6599,
+      75.9064
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 30,
+    "index": 43,
     "trainNumber": "22227/28",
     "origin": "New Jalpaiguri",
     "destination": "Guwahati",
@@ -385,155 +932,263 @@
     "destinationState": "Assam",
     "distanceKm": 407,
     "journeyTime": "5h 30m",
-    "originCoords": [26.7271, 88.3953],
-    "destinationCoords": [26.1445, 91.7362],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Tu",
+    "departureTime": "06.10",
+    "arrivalTime": "11.40",
+    "originCoords": [
+      26.7271,
+      88.3953
+    ],
+    "destinationCoords": [
+      26.1445,
+      91.7362
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 31,
+    "index": 44,
     "trainNumber": "22229/30",
     "origin": "Mumbai CSMT",
     "destination": "Madgaon",
     "originState": "Maharashtra",
     "destinationState": "Goa",
     "distanceKm": 590,
-    "journeyTime": "7h 50m",
-    "originCoords": [18.9398, 72.8355],
-    "destinationCoords": [15.2993, 73.9862],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 45m",
+    "daysOfService": "Except Fri",
+    "departureTime": "05.25",
+    "arrivalTime": "13.10",
+    "originCoords": [
+      18.9398,
+      72.8355
+    ],
+    "destinationCoords": [
+      15.2993,
+      73.9862
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 32,
+    "index": 45,
     "trainNumber": "22231/32",
     "origin": "Kalaburagi",
     "destination": "SMVT Bengaluru",
     "originState": "Karnataka",
     "destinationState": "Karnataka",
     "distanceKm": 611,
-    "journeyTime": "8h 00m",
-    "originCoords": [17.3297, 76.8343],
-    "destinationCoords": [13.0465, 77.665],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 45m",
+    "daysOfService": "Except Fri",
+    "departureTime": "05.15",
+    "arrivalTime": "14.00",
+    "originCoords": [
+      17.3297,
+      76.8343
+    ],
+    "destinationCoords": [
+      13.0465,
+      77.665
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 33,
+    "index": 46,
     "trainNumber": "22233/34",
     "origin": "New Jalpaiguri",
     "destination": "Patna",
     "originState": "West Bengal",
     "destinationState": "Bihar",
     "distanceKm": 473,
-    "journeyTime": "6h 30m",
-    "originCoords": [26.7271, 88.3953],
-    "destinationCoords": [25.5941, 85.1376],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 55m",
+    "daysOfService": "Except Tu",
+    "departureTime": "05.15",
+    "arrivalTime": "12.10",
+    "originCoords": [
+      26.7271,
+      88.3953
+    ],
+    "destinationCoords": [
+      25.5941,
+      85.1376
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 34,
+    "index": 47,
     "trainNumber": "22301/02",
     "origin": "Howrah",
     "destination": "New Jalpaiguri",
     "originState": "West Bengal",
     "destinationState": "West Bengal",
     "distanceKm": 561,
-    "journeyTime": "7h 30m",
-    "originCoords": [22.5958, 88.2636],
-    "destinationCoords": [26.7271, 88.3953],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 35m",
+    "daysOfService": "Except Wed",
+    "departureTime": "05.55",
+    "arrivalTime": "13.30",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      26.7271,
+      88.3953
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 35,
+    "index": 48,
     "trainNumber": "22345/46",
     "origin": "Patna",
     "destination": "Gomti Nagar",
     "originState": "Bihar",
     "destinationState": "Uttar Pradesh",
     "distanceKm": 553,
-    "journeyTime": "7h 25m",
-    "originCoords": [25.5941, 85.1376],
-    "destinationCoords": [26.8678, 81.0081],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 25m",
+    "daysOfService": "Except F",
+    "departureTime": "06.05",
+    "arrivalTime": "14.30",
+    "originCoords": [
+      25.5941,
+      85.1376
+    ],
+    "destinationCoords": [
+      26.8678,
+      81.0081
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 36,
+    "index": 49,
     "trainNumber": "22347/48",
-    "origin": "Patna",
-    "destination": "Howrah",
-    "originState": "Bihar",
-    "destinationState": "West Bengal",
+    "origin": "Howrah",
+    "destination": "Patna",
+    "originState": "West Bengal",
+    "destinationState": "Bihar",
     "distanceKm": 531,
-    "journeyTime": "6h 30m",
-    "originCoords": [25.5941, 85.1376],
-    "destinationCoords": [22.5958, 88.2636],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 50m",
+    "daysOfService": "Except Wed",
+    "departureTime": "15.50",
+    "arrivalTime": "22.40",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      25.5941,
+      85.1376
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 37,
+    "index": 50,
     "trainNumber": "22349/50",
     "origin": "Patna",
     "destination": "Ranchi",
     "originState": "Bihar",
     "destinationState": "Jharkhand",
     "distanceKm": 411,
-    "journeyTime": "6h 00m",
-    "originCoords": [25.5941, 85.1376],
-    "destinationCoords": [23.3441, 85.3096],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 05m",
+    "daysOfService": "Except Tu",
+    "departureTime": "07.00",
+    "arrivalTime": "13.05",
+    "originCoords": [
+      25.5941,
+      85.1376
+    ],
+    "destinationCoords": [
+      23.3441,
+      85.3096
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 38,
+    "index": 51,
     "trainNumber": "22415/16",
-    "origin": "New Delhi",
-    "destination": "Varanasi",
-    "originState": "Delhi",
-    "destinationState": "Uttar Pradesh",
-    "distanceKm": 771,
-    "journeyTime": "8h 00m",
-    "originCoords": [28.6425, 77.2197],
-    "destinationCoords": [25.3176, 82.9739],
-    "source": "Attached PDF route list + India Today service table"
-  },
-  {
-    "index": 39,
-    "trainNumber": "22425/26",
-    "origin": "Anand Vihar",
-    "destination": "Ayodhya Cantt",
-    "originState": "Delhi",
-    "destinationState": "Uttar Pradesh",
-    "distanceKm": 611,
-    "journeyTime": "8h 00m",
-    "originCoords": [28.6469, 77.3168],
-    "destinationCoords": [26.773, 82.134],
-    "source": "Attached PDF route list + India Today service table"
-  },
-  {
-    "index": 40,
-    "trainNumber": "22435/36",
     "origin": "Varanasi",
     "destination": "New Delhi",
     "originState": "Uttar Pradesh",
     "destinationState": "Delhi",
     "distanceKm": 771,
     "journeyTime": "8h 05m",
-    "originCoords": [25.3176, 82.9739],
-    "destinationCoords": [28.6425, 77.2197],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Tu",
+    "departureTime": "06.00",
+    "arrivalTime": "14.05",
+    "originCoords": [
+      25.3176,
+      82.9739
+    ],
+    "destinationCoords": [
+      28.6425,
+      77.2197
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 41,
+    "index": 52,
+    "trainNumber": "22425/26",
+    "origin": "Ayodhya Cantt",
+    "destination": "Anand Vihar",
+    "originState": "Uttar Pradesh",
+    "destinationState": "Delhi",
+    "distanceKm": 611,
+    "journeyTime": "8h 15m",
+    "daysOfService": "Except W",
+    "departureTime": "15.25",
+    "arrivalTime": "23.40",
+    "originCoords": [
+      26.773,
+      82.134
+    ],
+    "destinationCoords": [
+      28.6469,
+      77.3168
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 53,
+    "trainNumber": "22435/36",
+    "origin": "Varanasi",
+    "destination": "New Delhi",
+    "originState": "Uttar Pradesh",
+    "destinationState": "Delhi",
+    "distanceKm": 771,
+    "journeyTime": "8h 00m",
+    "daysOfService": "Except Th",
+    "departureTime": "15.00",
+    "arrivalTime": "23.00",
+    "originCoords": [
+      25.3176,
+      82.9739
+    ],
+    "destinationCoords": [
+      28.6425,
+      77.2197
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 54,
     "trainNumber": "22439/40",
     "origin": "New Delhi",
     "destination": "SMVD Katra",
     "originState": "Delhi",
     "destinationState": "Jammu and Kashmir",
     "distanceKm": 655,
-    "journeyTime": "8h 00m",
-    "originCoords": [28.6425, 77.2197],
-    "destinationCoords": [32.9916, 74.9316],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 20m",
+    "daysOfService": "Except W",
+    "departureTime": "06.00",
+    "arrivalTime": "14.20",
+    "originCoords": [
+      28.6425,
+      77.2197
+    ],
+    "destinationCoords": [
+      32.9916,
+      74.9316
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 42,
+    "index": 55,
     "trainNumber": "22447/48",
     "origin": "New Delhi",
     "destination": "Amb Andaura",
@@ -541,90 +1196,175 @@
     "destinationState": "Himachal Pradesh",
     "distanceKm": 412,
     "journeyTime": "5h 15m",
-    "originCoords": [28.6425, 77.2197],
-    "destinationCoords": [31.6858, 76.1253],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Tu",
+    "departureTime": "05.50",
+    "arrivalTime": "11.05",
+    "originCoords": [
+      28.6425,
+      77.2197
+    ],
+    "destinationCoords": [
+      31.6858,
+      76.1253
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 43,
+    "index": 56,
     "trainNumber": "22457/58",
-    "origin": "Dehradun",
-    "destination": "Anand Vihar",
-    "originState": "Uttarakhand",
-    "destinationState": "Delhi",
+    "origin": "Anand Vihar",
+    "destination": "Dehradun",
+    "originState": "Delhi",
+    "destinationState": "Uttarakhand",
     "distanceKm": 302,
     "journeyTime": "4h 45m",
-    "originCoords": [30.3165, 78.0322],
-    "destinationCoords": [28.6469, 77.3168],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Th",
+    "departureTime": "17.50",
+    "arrivalTime": "22.35",
+    "originCoords": [
+      28.6469,
+      77.3168
+    ],
+    "destinationCoords": [
+      30.3165,
+      78.0322
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 44,
+    "index": 57,
     "trainNumber": "22469/70",
-    "origin": "Hazrat Nizamuddin",
-    "destination": "Khajuraho",
-    "originState": "Delhi",
-    "destinationState": "Madhya Pradesh",
+    "origin": "Khajuraho",
+    "destination": "Hazrat Nizamuddin",
+    "originState": "Madhya Pradesh",
+    "destinationState": "Delhi",
     "distanceKm": 453,
-    "journeyTime": "6h 45m",
-    "originCoords": [28.588, 77.253],
-    "destinationCoords": [24.851, 79.9199],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 20m",
+    "daysOfService": "Except M",
+    "departureTime": "14.50",
+    "arrivalTime": "23.10",
+    "originCoords": [
+      24.851,
+      79.9199
+    ],
+    "destinationCoords": [
+      28.588,
+      77.253
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 45,
+    "index": 58,
     "trainNumber": "22477/78",
-    "origin": "SMVD Katra",
-    "destination": "New Delhi",
-    "originState": "Jammu and Kashmir",
-    "destinationState": "Delhi",
+    "origin": "New Delhi",
+    "destination": "SMVD Katra",
+    "originState": "Delhi",
+    "destinationState": "Jammu and Kashmir",
     "distanceKm": 655,
-    "journeyTime": "8h 00m",
-    "originCoords": [32.9916, 74.9316],
-    "destinationCoords": [28.6425, 77.2197],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 20m",
+    "daysOfService": "Except W",
+    "departureTime": "15.00",
+    "arrivalTime": "23.20",
+    "originCoords": [
+      28.6425,
+      77.2197
+    ],
+    "destinationCoords": [
+      32.9916,
+      74.9316
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 46,
+    "index": 59,
     "trainNumber": "22487/88",
-    "origin": "Amritsar",
-    "destination": "Delhi",
-    "originState": "Punjab",
-    "destinationState": "Delhi",
+    "origin": "Delhi",
+    "destination": "Amritsar",
+    "originState": "Delhi",
+    "destinationState": "Punjab",
     "distanceKm": 449,
-    "journeyTime": "5h 50m",
-    "originCoords": [31.634, 74.8723],
-    "destinationCoords": [28.6448, 77.2167],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "5h 30m",
+    "daysOfService": "Except F",
+    "departureTime": "15.15",
+    "arrivalTime": "20.45",
+    "originCoords": [
+      28.6448,
+      77.2167
+    ],
+    "destinationCoords": [
+      31.634,
+      74.8723
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 47,
-    "trainNumber": "22547/48",
+    "index": 60,
+    "trainNumber": "22489/90",
+    "origin": "Varanasi",
+    "destination": "Meerut City",
+    "originState": "Uttar Pradesh",
+    "destinationState": "Uttar Pradesh",
+    "distanceKm": null,
+    "journeyTime": "11h 55m",
+    "daysOfService": "Except Tu",
+    "departureTime": "09.10",
+    "arrivalTime": "21.05",
+    "originCoords": [
+      25.3176,
+      82.9739
+    ],
+    "destinationCoords": [
+      28.9845,
+      77.7064
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 61,
+    "trainNumber": "22545/46",
     "origin": "Lucknow Jn.",
     "destination": "Dehradun",
     "originState": "Uttar Pradesh",
     "destinationState": "Uttarakhand",
     "distanceKm": 545,
-    "journeyTime": "8h 25m",
-    "originCoords": [26.8317, 80.9231],
-    "destinationCoords": [30.3165, 78.0322],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "8h 20m",
+    "daysOfService": "Except M",
+    "departureTime": "05.15",
+    "arrivalTime": "13.35",
+    "originCoords": [
+      26.8317,
+      80.9231
+    ],
+    "destinationCoords": [
+      30.3165,
+      78.0322
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 48,
+    "index": 62,
     "trainNumber": "22549/50",
     "origin": "Gorakhpur",
     "destination": "Prayagraj",
     "originState": "Uttar Pradesh",
     "destinationState": "Uttar Pradesh",
     "distanceKm": 355,
-    "journeyTime": "5h 30m",
-    "originCoords": [26.7606, 83.3732],
-    "destinationCoords": [25.4358, 81.8463],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "7h 30m",
+    "daysOfService": "Except Sat",
+    "departureTime": "06.05",
+    "arrivalTime": "13.35",
+    "originCoords": [
+      26.7606,
+      83.3732
+    ],
+    "destinationCoords": [
+      25.4358,
+      81.8463
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 49,
+    "index": 63,
     "trainNumber": "22895/96",
     "origin": "Howrah",
     "destination": "Puri",
@@ -632,34 +1372,435 @@
     "destinationState": "Odisha",
     "distanceKm": 500,
     "journeyTime": "6h 25m",
-    "originCoords": [22.5958, 88.2636],
-    "destinationCoords": [19.8135, 85.8312],
-    "source": "Attached PDF route list + India Today service table"
+    "daysOfService": "Except Th",
+    "departureTime": "06.10",
+    "arrivalTime": "12.35",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      19.8135,
+      85.8312
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 50,
+    "index": 64,
     "trainNumber": "22925/26",
-    "origin": "Okha",
-    "destination": "Ahmedabad",
+    "origin": "Ahmedabad",
+    "destination": "Okha",
     "originState": "Gujarat",
     "destinationState": "Gujarat",
     "distanceKm": 499,
-    "journeyTime": "7h 05m",
-    "originCoords": [22.4676, 69.07],
-    "destinationCoords": [23.0225, 72.5714],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "6h 30m",
+    "daysOfService": "Except Tu",
+    "departureTime": "18.10",
+    "arrivalTime": "00.40",
+    "originCoords": [
+      23.0225,
+      72.5714
+    ],
+    "destinationCoords": [
+      22.4676,
+      69.07
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   },
   {
-    "index": 51,
+    "index": 65,
     "trainNumber": "22961/62",
-    "origin": "Ahmedabad",
-    "destination": "Mumbai Central",
-    "originState": "Gujarat",
-    "destinationState": "Maharashtra",
+    "origin": "Mumbai Central",
+    "destination": "Ahmedabad",
+    "originState": "Maharashtra",
+    "destinationState": "Gujarat",
     "distanceKm": 522,
-    "journeyTime": "6h 25m",
-    "originCoords": [23.0225, 72.5714],
-    "destinationCoords": [18.969, 72.8205],
-    "source": "Attached PDF route list + India Today service table"
+    "journeyTime": "5h 30m",
+    "daysOfService": "Except Su",
+    "departureTime": "15.45",
+    "arrivalTime": "21.15",
+    "originCoords": [
+      18.969,
+      72.8205
+    ],
+    "destinationCoords": [
+      23.0225,
+      72.5714
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 66,
+    "trainNumber": "22303/04",
+    "origin": "Howrah",
+    "destination": "Gaya",
+    "originState": "West Bengal",
+    "destinationState": "Bihar",
+    "distanceKm": null,
+    "journeyTime": "5h 45m",
+    "daysOfService": "Except Th",
+    "departureTime": "06.45",
+    "arrivalTime": "12.30",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      24.7914,
+      85.0002
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 67,
+    "trainNumber": "22309/10",
+    "origin": "Howrah",
+    "destination": "Jamalpur",
+    "originState": "West Bengal",
+    "destinationState": "Bihar",
+    "distanceKm": null,
+    "journeyTime": "6h 30m",
+    "daysOfService": "Except F",
+    "departureTime": "07.45",
+    "arrivalTime": "14.15",
+    "originCoords": [
+      22.5958,
+      88.2636
+    ],
+    "destinationCoords": [
+      25.3127,
+      86.4889
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 68,
+    "trainNumber": "22499/00",
+    "origin": "Deoghar",
+    "destination": "Varanasi",
+    "originState": "Jharkhand",
+    "destinationState": "Uttar Pradesh",
+    "distanceKm": null,
+    "journeyTime": "7h 15m",
+    "daysOfService": "Except Tu",
+    "departureTime": "15.15",
+    "arrivalTime": "22.30",
+    "originCoords": [
+      24.4766,
+      86.698
+    ],
+    "destinationCoords": [
+      25.3176,
+      82.9739
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 69,
+    "trainNumber": "26101/02",
+    "origin": "Pune",
+    "destination": "Ajni",
+    "originState": "Maharashtra",
+    "destinationState": "Maharashtra",
+    "distanceKm": null,
+    "journeyTime": "12h 00m",
+    "daysOfService": "Except Tu",
+    "departureTime": "06.25",
+    "arrivalTime": "18.25",
+    "originCoords": [
+      18.5204,
+      73.8567
+    ],
+    "destinationCoords": [
+      21.126,
+      79.0887
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 70,
+    "trainNumber": "26651/52",
+    "origin": "KSR Bengaluru",
+    "destination": "Ernakulam Jn.",
+    "originState": "Karnataka",
+    "destinationState": "Kerala",
+    "distanceKm": null,
+    "journeyTime": "8h 40m",
+    "daysOfService": "Except Wed",
+    "departureTime": "05.10",
+    "arrivalTime": "13.50",
+    "originCoords": [
+      12.9784,
+      77.5721
+    ],
+    "destinationCoords": [
+      9.9816,
+      76.2999
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 71,
+    "trainNumber": "26301/02",
+    "origin": "Jogbani",
+    "destination": "Danapur",
+    "originState": "Bihar",
+    "destinationState": "Bihar",
+    "distanceKm": null,
+    "journeyTime": "16h 30m",
+    "daysOfService": "Except Wed",
+    "departureTime": "19.00",
+    "arrivalTime": "11.30",
+    "originCoords": [
+      26.3976,
+      87.2652
+    ],
+    "destinationCoords": [
+      25.6228,
+      85.0405
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 72,
+    "trainNumber": "26401/02",
+    "origin": "SMVD Katra",
+    "destination": "Srinagar",
+    "originState": "Jammu and Kashmir",
+    "destinationState": "Jammu and Kashmir",
+    "distanceKm": null,
+    "journeyTime": "2h 58m",
+    "daysOfService": "Except Tue",
+    "departureTime": "08.10",
+    "arrivalTime": "11.08",
+    "originCoords": [
+      32.9916,
+      74.9316
+    ],
+    "destinationCoords": [
+      34.0837,
+      74.7973
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 73,
+    "trainNumber": "26403/04",
+    "origin": "SMVD Katra",
+    "destination": "Srinagar",
+    "originState": "Jammu and Kashmir",
+    "destinationState": "Jammu and Kashmir",
+    "distanceKm": null,
+    "journeyTime": "2h 58m",
+    "daysOfService": "Except Wed",
+    "departureTime": "14.55",
+    "arrivalTime": "17.53",
+    "originCoords": [
+      32.9916,
+      74.9316
+    ],
+    "destinationCoords": [
+      34.0837,
+      74.7973
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 74,
+    "trainNumber": "26405/06",
+    "origin": "Amritsar",
+    "destination": "SMVD Katra",
+    "originState": "Punjab",
+    "destinationState": "Jammu and Kashmir",
+    "distanceKm": null,
+    "journeyTime": "5h 35m",
+    "daysOfService": "Except Tue",
+    "departureTime": "16.25",
+    "arrivalTime": "22.00",
+    "originCoords": [
+      31.634,
+      74.8723
+    ],
+    "destinationCoords": [
+      32.9916,
+      74.9316
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 75,
+    "trainNumber": "26461/62",
+    "origin": "Delhi",
+    "destination": "Firozpur Cantt",
+    "originState": "Delhi",
+    "destinationState": "Punjab",
+    "distanceKm": null,
+    "journeyTime": "6h 35m",
+    "daysOfService": "Except Wed",
+    "departureTime": "16.00",
+    "arrivalTime": "22.35",
+    "originCoords": [
+      28.6448,
+      77.2167
+    ],
+    "destinationCoords": [
+      30.9143,
+      74.61
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 76,
+    "trainNumber": "26471/72",
+    "origin": "Bikaner",
+    "destination": "Delhi Cantt",
+    "originState": "Rajasthan",
+    "destinationState": "Delhi",
+    "distanceKm": null,
+    "journeyTime": "6h 15m",
+    "daysOfService": "Except Wed",
+    "departureTime": "05.40",
+    "arrivalTime": "11.55",
+    "originCoords": [
+      28.0229,
+      73.3119
+    ],
+    "destinationCoords": [
+      28.5862,
+      77.1188
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 77,
+    "trainNumber": "26481/82",
+    "origin": "Jodhpur",
+    "destination": "Delhi Cantt",
+    "originState": "Rajasthan",
+    "destinationState": "Delhi",
+    "distanceKm": null,
+    "journeyTime": "8h 00m",
+    "daysOfService": "Except Tue",
+    "departureTime": "05.30",
+    "arrivalTime": "13.30",
+    "originCoords": [
+      26.2389,
+      73.0243
+    ],
+    "destinationCoords": [
+      28.5862,
+      77.1188
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 78,
+    "trainNumber": "26501/02",
+    "origin": "Patliputra",
+    "destination": "Gorakhpur",
+    "originState": "Bihar",
+    "destinationState": "Uttar Pradesh",
+    "distanceKm": null,
+    "journeyTime": "7h 00m",
+    "daysOfService": "Except Sat",
+    "departureTime": "15.30",
+    "arrivalTime": "22.30",
+    "originCoords": [
+      25.6227,
+      85.1232
+    ],
+    "destinationCoords": [
+      26.7606,
+      83.3732
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 79,
+    "trainNumber": "26503/04",
+    "origin": "Saharanpur",
+    "destination": "Gomti Nagar",
+    "originState": "Uttar Pradesh",
+    "destinationState": "Uttar Pradesh",
+    "distanceKm": null,
+    "journeyTime": "9h 00m",
+    "daysOfService": "Except Tue",
+    "departureTime": "05.05",
+    "arrivalTime": "14.05",
+    "originCoords": [
+      29.9671,
+      77.551
+    ],
+    "destinationCoords": [
+      26.8678,
+      81.0081
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 80,
+    "trainNumber": "26505/06",
+    "origin": "Khajuraho",
+    "destination": "Banaras",
+    "originState": "Madhya Pradesh",
+    "destinationState": "Uttar Pradesh",
+    "distanceKm": null,
+    "journeyTime": "7h 50m",
+    "daysOfService": "Except Th",
+    "departureTime": "15.20",
+    "arrivalTime": "23.10",
+    "originCoords": [
+      24.851,
+      79.9199
+    ],
+    "destinationCoords": [
+      25.3176,
+      82.9739
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 81,
+    "trainNumber": "26751/52",
+    "origin": "Belagavi Jn",
+    "destination": "KSR Bengaluru",
+    "originState": "Karnataka",
+    "destinationState": "Karnataka",
+    "distanceKm": null,
+    "journeyTime": "8h 15m",
+    "daysOfService": "Except W",
+    "departureTime": "05.35",
+    "arrivalTime": "13.50",
+    "originCoords": [
+      15.8497,
+      74.4977
+    ],
+    "destinationCoords": [
+      12.9784,
+      77.5721
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
+  },
+  {
+    "index": 82,
+    "trainNumber": "26901/02",
+    "origin": "Sabarmati",
+    "destination": "Veraval",
+    "originState": "Gujarat",
+    "destinationState": "Gujarat",
+    "distanceKm": null,
+    "journeyTime": "7h 00m",
+    "daysOfService": "Except Th",
+    "departureTime": "05.25",
+    "arrivalTime": "12.25",
+    "originCoords": [
+      23.0715,
+      72.588
+    ],
+    "destinationCoords": [
+      20.9157,
+      70.3629
+    ],
+    "source": "Uploaded VandeBharatTrains.pdf"
   }
 ]
