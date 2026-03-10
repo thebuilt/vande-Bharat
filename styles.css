@@ -189,6 +189,13 @@ h1 {
   color: var(--muted);
 }
 
+.map-error {
+  margin: 8px 0 0;
+  color: #a33d18;
+  font-size: 0.9rem;
+  max-width: 70ch;
+}
+
 .panel-head.compact {
   margin-bottom: 8px;
 }

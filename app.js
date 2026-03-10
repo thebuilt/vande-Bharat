@@ -1,5 +1,5 @@
 const CONFIG = {
-  geoUrl: "../MesoIndia/data/india-states-simplified.geojson",
+  geoUrl: "./data/india-states-simplified.geojson",
   railwayUrl: "./data/railway_network.geojson",
   routeUrl: "./data/trains.json",
   width: 960,
@@ -27,8 +27,32 @@ const dom = {
   detailGrid: document.getElementById("detail-grid"),
   statRoutes: document.getElementById("stat-routes"),
   statStates: document.getElementById("stat-states"),
-  statLongest: document.getElementById("stat-longest")
+  statLongest: document.getElementById("stat-longest"),
+  mapError: document.getElementById("map-error")
 };
+
+function showError(message) {
+  dom.mapError.hidden = false;
+  dom.mapError.textContent = message;
+}
+
+function clearError() {
+  dom.mapError.hidden = true;
+  dom.mapError.textContent = "";
+}
+
+async function fetchJson(url, required = true) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    const message = `Failed to load ${url} (${response.status}).`;
+    if (required) {
+      throw new Error(message);
+    }
+    showError(`${message} The map is rendering without that layer.`);
+    return null;
+  }
+  return response.json();
+}
 
 const projection = d3.geoMercator();
 const path = d3.geoPath(projection);
@@ -306,10 +330,11 @@ function wireEvents() {
 }
 
 async function init() {
+  clearError();
   const [indiaGeo, railwayGeo, routes] = await Promise.all([
-    fetch(CONFIG.geoUrl).then((response) => response.json()),
-    fetch(CONFIG.railwayUrl).then((response) => response.json()),
-    fetch(CONFIG.routeUrl).then((response) => response.json())
+    fetchJson(CONFIG.geoUrl, true),
+    fetchJson(CONFIG.railwayUrl, false),
+    fetchJson(CONFIG.routeUrl, true)
   ]);
 
   state.indiaGeo = indiaGeo;
@@ -326,11 +351,13 @@ async function init() {
     .attr("class", "state-path")
     .attr("d", path);
 
-  networkLayer.selectAll("path")
-    .data(railwayGeo.features)
-    .join("path")
-    .attr("class", "rail-network-path")
-    .attr("d", path);
+  if (railwayGeo?.features?.length) {
+    networkLayer.selectAll("path")
+      .data(railwayGeo.features)
+      .join("path")
+      .attr("class", "rail-network-path")
+      .attr("d", path);
+  }
 
   populateFilters(state.routes);
   setSummaryStats(state.routes);
@@ -342,7 +369,8 @@ async function init() {
 
 init().catch((error) => {
   console.error(error);
+  showError(error.message || "Map failed to load.");
   dom.resultLabel.textContent = "Failed to load map data.";
   dom.detailTitle.textContent = "Load error";
-  dom.detailSubtitle.textContent = "Check the browser console and make sure the folder is served over HTTP.";
+  dom.detailSubtitle.textContent = "The page loaded, but one or more map files did not.";
 });
