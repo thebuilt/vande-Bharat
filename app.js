@@ -1,21 +1,18 @@
-const CONFIG = {
-  geoUrl: "./data/india-states-simplified.geojson",
-  railwayUrl: "./data/railway_network.geojson",
-  routeUrl: "./data/trains.json",
-  width: 960,
-  height: 760
+var CONFIG = {
+  renderUrl: "./data/render-data.json"
 };
 
-const state = {
+var SVG_NS = "http://www.w3.org/2000/svg";
+
+var state = {
   routes: [],
   filtered: [],
   selectedId: null,
-  indiaGeo: null,
-  railwayGeo: null
+  renderData: null
 };
 
-const dom = {
-  map: d3.select("#route-map"),
+var dom = {
+  map: document.getElementById("route-map"),
   search: document.getElementById("search-input"),
   originFilter: document.getElementById("origin-filter"),
   destinationFilter: document.getElementById("destination-filter"),
@@ -31,6 +28,32 @@ const dom = {
   mapError: document.getElementById("map-error")
 };
 
+var layers = {
+  states: null,
+  railways: null,
+  routes: null,
+  stations: null,
+  labels: null
+};
+
+function svgEl(tag, attrs) {
+  var node = document.createElementNS(SVG_NS, tag);
+  var key;
+  for (key in attrs) {
+    if (Object.prototype.hasOwnProperty.call(attrs, key)) {
+      node.setAttribute(key, attrs[key]);
+    }
+  }
+  return node;
+}
+
+function slugify(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function showError(message) {
   dom.mapError.hidden = false;
   dom.mapError.textContent = message;
@@ -41,102 +64,67 @@ function clearError() {
   dom.mapError.textContent = "";
 }
 
-async function fetchJson(url, required = true) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    const message = `Failed to load ${url} (${response.status}).`;
-    if (required) {
-      throw new Error(message);
+function fetchJson(url) {
+  return fetch(url).then(function (response) {
+    if (!response.ok) {
+      throw new Error("Failed to load " + url + " (" + response.status + ").");
     }
-    showError(`${message} The map is rendering without that layer.`);
-    return null;
-  }
-  return response.json();
-}
-
-const projection = d3.geoMercator();
-const path = d3.geoPath(projection);
-
-const svg = dom.map;
-const root = svg.append("g");
-const stateLayer = root.append("g");
-const networkLayer = root.append("g");
-const routeLayer = root.append("g");
-const stationLayer = root.append("g");
-const labelLayer = root.append("g");
-
-function slugify(value) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
-function parseDurationToMinutes(text) {
-  const hours = Number((text.match(/(\d+)h/) || [0, 0])[1]);
-  const minutes = Number((text.match(/(\d+)m/) || [0, 0])[1]);
-  return (hours * 60) + minutes;
+    return response.json();
+  });
 }
 
 function enrichRoute(route) {
-  const interstate = route.originState !== route.destinationState;
-  return {
-    ...route,
-    id: slugify(`${route.trainNumber}-${route.origin}-${route.destination}`),
-    interstate,
-    durationMinutes: parseDurationToMinutes(route.journeyTime),
-    searchBlob: [
-      route.trainNumber,
-      route.origin,
-      route.destination,
-      route.originState,
-      route.destinationState
-    ].join(" ").toLowerCase()
-  };
-}
-
-function buildCurve(startPoint, endPoint) {
-  const [lat1, lon1] = startPoint;
-  const [lat2, lon2] = endPoint;
-  const mx = (lat1 + lat2) / 2;
-  const my = (lon1 + lon2) / 2;
-  const dx = lat2 - lat1;
-  const dy = lon2 - lon1;
-  const norm = Math.max(Math.hypot(dx, dy), 1);
-  const curvature = Math.min(2.4, Math.max(0.7, norm * 0.16));
-  const cx = mx - (dy / norm) * curvature;
-  const cy = my + (dx / norm) * curvature;
-  return [startPoint, [cx, cy], endPoint];
+  route.id = slugify(route.trainNumber + "-" + route.origin + "-" + route.destination);
+  route.searchBlob = [
+    route.trainNumber,
+    route.origin,
+    route.destination,
+    route.originState,
+    route.destinationState
+  ].join(" ").toLowerCase();
+  return route;
 }
 
 function setSummaryStats(routes) {
-  const states = new Set();
-  routes.forEach((route) => {
-    states.add(route.originState);
-    states.add(route.destinationState);
-  });
-  const longest = routes.reduce((best, route) => {
-    const bestDistance = best ? best.distanceKm : 0;
-    return route.distanceKm > bestDistance ? route : best;
-  }, null);
+  var statesSeen = {};
+  var longest = null;
+  var i;
 
-  dom.statRoutes.textContent = routes.length;
-  dom.statStates.textContent = states.size;
-  dom.statLongest.textContent = longest ? `${longest.distanceKm} km` : "-";
+  for (i = 0; i < routes.length; i += 1) {
+    statesSeen[routes[i].originState] = true;
+    statesSeen[routes[i].destinationState] = true;
+    if (!longest || routes[i].distanceKm > longest.distanceKm) {
+      longest = routes[i];
+    }
+  }
+
+  dom.statRoutes.textContent = String(routes.length);
+  dom.statStates.textContent = String(Object.keys(statesSeen).length);
+  dom.statLongest.textContent = longest ? (longest.distanceKm + " km") : "-";
 }
 
 function populateFilters(routes) {
-  const states = [...new Set(routes.flatMap((route) => [route.originState, route.destinationState]))].sort();
-  states.forEach((stateName) => {
-    const optionOrigin = document.createElement("option");
-    optionOrigin.value = stateName;
-    optionOrigin.textContent = stateName;
-    dom.originFilter.append(optionOrigin);
+  var stateNames = {};
+  var names;
+  var i;
 
-    const optionDestination = document.createElement("option");
-    optionDestination.value = stateName;
-    optionDestination.textContent = stateName;
-    dom.destinationFilter.append(optionDestination);
+  for (i = 0; i < routes.length; i += 1) {
+    stateNames[routes[i].originState] = true;
+    stateNames[routes[i].destinationState] = true;
+  }
+
+  names = Object.keys(stateNames).sort();
+
+  names.forEach(function (name) {
+    var optionOrigin = document.createElement("option");
+    optionOrigin.value = name;
+    optionOrigin.textContent = name;
+    dom.originFilter.appendChild(optionOrigin);
+
+    var optionDestination = document.createElement("option");
+    optionDestination.value = name;
+    optionDestination.textContent = name;
+    dom.destinationFilter.appendChild(optionDestination);
   });
 }
 
@@ -149,9 +137,10 @@ function currentFilters() {
 }
 
 function applyFilters() {
-  const filters = currentFilters();
-  state.filtered = state.routes.filter((route) => {
-    if (filters.search && !route.searchBlob.includes(filters.search)) {
+  var filters = currentFilters();
+
+  state.filtered = state.routes.filter(function (route) {
+    if (filters.search && route.searchBlob.indexOf(filters.search) === -1) {
       return false;
     }
     if (filters.originState && route.originState !== filters.originState) {
@@ -163,63 +152,63 @@ function applyFilters() {
     return true;
   });
 
-  if (!state.filtered.some((route) => route.id === state.selectedId)) {
+  if (!state.filtered.some(function (route) { return route.id === state.selectedId; })) {
     state.selectedId = state.filtered.length ? state.filtered[0].id : null;
   }
+
+  dom.resultLabel.textContent = state.filtered.length === state.routes.length
+    ? "Showing all routes."
+    : "Showing " + state.filtered.length + " filtered route" + (state.filtered.length === 1 ? "." : "s.");
 
   renderRouteList();
   renderRouteLines();
   renderDetails();
-
-  dom.resultLabel.textContent = state.filtered.length === state.routes.length
-    ? "Showing all routes."
-    : `Showing ${state.filtered.length} filtered route${state.filtered.length === 1 ? "" : "s"}.`;
 }
 
 function renderRouteList() {
   dom.routeList.innerHTML = "";
 
   if (!state.filtered.length) {
-    dom.routeList.innerHTML = `<div class="empty-state">No routes match the current filters.</div>`;
+    dom.routeList.innerHTML = '<div class="empty-state">No routes match the current filters.</div>';
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-
-  state.filtered.forEach((route) => {
-    const article = document.createElement("article");
-    article.className = `route-item${route.id === state.selectedId ? " active" : ""}`;
+  state.filtered.forEach(function (route) {
+    var article = document.createElement("article");
+    article.className = "route-item" + (route.id === state.selectedId ? " active" : "");
     article.tabIndex = 0;
     article.setAttribute("role", "listitem");
-    article.innerHTML = `
-      <div class="route-topline">
-        <div>
-          <div class="route-name">${route.origin} to ${route.destination}</div>
-          <div class="route-meta">${route.trainNumber}</div>
-        </div>
-        <span class="route-badge ${route.interstate ? "interstate" : "intrastate"}">
-          ${route.interstate ? "Inter-state" : "Intra-state"}
-        </span>
-      </div>
-      <p class="route-meta">${route.distanceKm} km · ${route.journeyTime} · ${route.originState} to ${route.destinationState}</p>
-    `;
+    article.innerHTML =
+      '<div class="route-topline">' +
+        "<div>" +
+          '<div class="route-name">' + route.origin + " to " + route.destination + "</div>" +
+          '<div class="route-meta">' + route.trainNumber + "</div>" +
+        "</div>" +
+        '<span class="route-badge ' + (route.interstate ? "interstate" : "intrastate") + '">' +
+          (route.interstate ? "Inter-state" : "Intra-state") +
+        "</span>" +
+      "</div>" +
+      '<p class="route-meta">' + route.distanceKm + " km · " + route.journeyTime + " · " + route.originState + " to " + route.destinationState + "</p>";
 
-    article.addEventListener("click", () => selectRoute(route.id));
-    article.addEventListener("keydown", (event) => {
+    article.addEventListener("click", function () {
+      selectRoute(route.id);
+    });
+    article.addEventListener("keydown", function (event) {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         selectRoute(route.id);
       }
     });
 
-    fragment.append(article);
+    dom.routeList.appendChild(article);
   });
-
-  dom.routeList.append(fragment);
 }
 
 function renderDetails() {
-  const route = state.routes.find((entry) => entry.id === state.selectedId);
+  var route = state.routes.find(function (entry) {
+    return entry.id === state.selectedId;
+  });
+  var details;
 
   if (!route) {
     dom.detailTitle.textContent = "Select a route";
@@ -228,87 +217,88 @@ function renderDetails() {
     return;
   }
 
-  dom.detailTitle.textContent = `${route.origin} to ${route.destination}`;
-  dom.detailSubtitle.textContent = `${route.trainNumber} · ${route.interstate ? "Inter-state service" : "Intra-state service"}`;
+  dom.detailTitle.textContent = route.origin + " to " + route.destination;
+  dom.detailSubtitle.textContent = route.trainNumber + " · " + (route.interstate ? "Inter-state service" : "Intra-state service");
 
-  const details = [
+  details = [
     ["Train Number", route.trainNumber],
     ["Origin", route.origin],
     ["Destination", route.destination],
     ["Origin State", route.originState],
     ["Destination State", route.destinationState],
-    ["Distance", `${route.distanceKm} km`],
+    ["Distance", route.distanceKm + " km"],
     ["Journey Time", route.journeyTime],
     ["Map Type", route.interstate ? "Inter-state connection" : "Intra-state connection"]
   ];
 
-  dom.detailGrid.innerHTML = details.map(([label, value]) => `
-    <div>
-      <dt>${label}</dt>
-      <dd>${value}</dd>
-    </div>
-  `).join("");
+  dom.detailGrid.innerHTML = details.map(function (pair) {
+    return "<div><dt>" + pair[0] + "</dt><dd>" + pair[1] + "</dd></div>";
+  }).join("");
+}
+
+function clearLayer(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
 }
 
 function renderRouteLines() {
-  const visibleIds = new Set(state.filtered.map((route) => route.id));
-  const line = d3.line()
-    .x((point) => projection([point[1], point[0]])[0])
-    .y((point) => projection([point[1], point[0]])[1])
-    .curve(d3.curveCatmullRom.alpha(0.5));
+  var visibleIds = {};
+  var selectedRoute = null;
 
-  const routes = routeLayer.selectAll("path")
-    .data(state.routes, (route) => route.id);
+  state.filtered.forEach(function (route) {
+    visibleIds[route.id] = true;
+  });
 
-  routes.join("path")
-    .attr("class", (route) => [
-      "route-map-line",
-      route.interstate ? "interstate" : "intrastate",
-      visibleIds.has(route.id) ? "" : "dimmed",
-      route.id === state.selectedId ? "active" : ""
-    ].filter(Boolean).join(" "))
-    .attr("d", (route) => line(buildCurve(route.originCoords, route.destinationCoords)))
-    .on("click", (_, route) => selectRoute(route.id));
+  clearLayer(layers.routes);
+  clearLayer(layers.stations);
+  clearLayer(layers.labels);
 
-  routeLayer.selectAll("path")
-    .filter((route) => route.id === state.selectedId)
-    .raise();
+  state.routes.forEach(function (route) {
+    var path = svgEl("path", {
+      d: route.projected.path,
+      class: "route-map-line " +
+        (route.interstate ? "interstate " : "intrastate ") +
+        (visibleIds[route.id] ? "" : "dimmed ") +
+        (route.id === state.selectedId ? "active" : "")
+    });
 
-  renderStations();
-}
+    path.addEventListener("click", function () {
+      selectRoute(route.id);
+    });
 
-function renderStations() {
-  const selectedRoute = state.routes.find((route) => route.id === state.selectedId);
+    layers.routes.appendChild(path);
+
+    if (route.id === state.selectedId) {
+      selectedRoute = route;
+    }
+  });
+
   if (!selectedRoute) {
-    stationLayer.selectAll("*").remove();
-    labelLayer.selectAll("*").remove();
     return;
   }
 
-  const stations = [
-    { name: selectedRoute.origin, coords: selectedRoute.originCoords, anchor: "start" },
-    { name: selectedRoute.destination, coords: selectedRoute.destinationCoords, anchor: "end" }
-  ].map((station) => ({
-    ...station,
-    point: projection([station.coords[1], station.coords[0]])
-  }));
+  [
+    { name: selectedRoute.origin, point: selectedRoute.projected.origin, anchor: "start" },
+    { name: selectedRoute.destination, point: selectedRoute.projected.destination, anchor: "end" }
+  ].forEach(function (station) {
+    var circle = svgEl("circle", {
+      class: "station-node",
+      cx: station.point[0],
+      cy: station.point[1],
+      r: 5
+    });
+    var label = svgEl("text", {
+      class: "selected-station-label",
+      x: station.point[0] + (station.anchor === "start" ? 8 : -8),
+      y: station.point[1] - 8,
+      "text-anchor": station.anchor === "start" ? "start" : "end"
+    });
 
-  stationLayer.selectAll("circle")
-    .data(stations, (station) => station.name)
-    .join("circle")
-    .attr("class", "station-node")
-    .attr("r", 5)
-    .attr("cx", (station) => station.point[0])
-    .attr("cy", (station) => station.point[1]);
-
-  labelLayer.selectAll("text")
-    .data(stations, (station) => station.name)
-    .join("text")
-    .attr("class", "selected-station-label")
-    .attr("x", (station) => station.point[0] + (station.anchor === "start" ? 8 : -8))
-    .attr("y", (station) => station.point[1] - 8)
-    .attr("text-anchor", (station) => station.anchor === "start" ? "start" : "end")
-    .text((station) => station.name);
+    label.textContent = station.name;
+    layers.stations.appendChild(circle);
+    layers.labels.appendChild(label);
+  });
 }
 
 function selectRoute(routeId) {
@@ -319,12 +309,12 @@ function selectRoute(routeId) {
 }
 
 function wireEvents() {
-  [dom.search, dom.originFilter, dom.destinationFilter].forEach((element) => {
+  [dom.search, dom.originFilter, dom.destinationFilter].forEach(function (element) {
     element.addEventListener("input", applyFilters);
     element.addEventListener("change", applyFilters);
   });
 
-  dom.reset.addEventListener("click", () => {
+  dom.reset.addEventListener("click", function () {
     dom.search.value = "";
     dom.originFilter.value = "";
     dom.destinationFilter.value = "";
@@ -332,48 +322,58 @@ function wireEvents() {
   });
 }
 
-async function init() {
-  clearError();
-  const [indiaGeo, railwayGeo, routes] = await Promise.all([
-    fetchJson(CONFIG.geoUrl, true),
-    fetchJson(CONFIG.railwayUrl, false),
-    fetchJson(CONFIG.routeUrl, true)
-  ]);
+function initSvg(renderData) {
+  dom.map.setAttribute("viewBox", "0 0 " + renderData.width + " " + renderData.height);
 
-  state.indiaGeo = indiaGeo;
-  state.railwayGeo = railwayGeo;
-  state.routes = routes.map(enrichRoute);
-  state.filtered = [...state.routes];
-  state.selectedId = state.routes.length ? state.routes[0].id : null;
+  layers.states = svgEl("g", {});
+  layers.railways = svgEl("g", {});
+  layers.routes = svgEl("g", {});
+  layers.stations = svgEl("g", {});
+  layers.labels = svgEl("g", {});
 
-  projection.fitExtent([[24, 24], [CONFIG.width - 24, CONFIG.height - 24]], indiaGeo);
+  dom.map.appendChild(layers.states);
+  dom.map.appendChild(layers.railways);
+  dom.map.appendChild(layers.routes);
+  dom.map.appendChild(layers.stations);
+  dom.map.appendChild(layers.labels);
 
-  stateLayer.selectAll("path")
-    .data(indiaGeo.features)
-    .join("path")
-    .attr("class", "state-path")
-    .attr("d", path);
+  renderData.states.forEach(function (entry) {
+    layers.states.appendChild(svgEl("path", {
+      d: entry.path,
+      class: "state-path"
+    }));
+  });
 
-  if (railwayGeo && railwayGeo.features && railwayGeo.features.length) {
-    networkLayer.selectAll("path")
-      .data(railwayGeo.features)
-      .join("path")
-      .attr("class", "rail-network-path")
-      .attr("d", path);
-  }
-
-  populateFilters(state.routes);
-  setSummaryStats(state.routes);
-  renderRouteList();
-  renderRouteLines();
-  renderDetails();
-  wireEvents();
+  renderData.railways.forEach(function (pathData) {
+    layers.railways.appendChild(svgEl("path", {
+      d: pathData,
+      class: "rail-network-path"
+    }));
+  });
 }
 
-init().catch((error) => {
-  console.error(error);
-  showError(error.message || "Map failed to load.");
-  dom.resultLabel.textContent = "Failed to load map data.";
-  dom.detailTitle.textContent = "Load error";
-  dom.detailSubtitle.textContent = "The page loaded, but one or more map files did not.";
-});
+function init() {
+  clearError();
+  fetchJson(CONFIG.renderUrl).then(function (renderData) {
+    state.renderData = renderData;
+    state.routes = renderData.routes.map(enrichRoute);
+    state.filtered = state.routes.slice();
+    state.selectedId = state.routes.length ? state.routes[0].id : null;
+
+    initSvg(renderData);
+    populateFilters(state.routes);
+    setSummaryStats(state.routes);
+    renderRouteList();
+    renderRouteLines();
+    renderDetails();
+    wireEvents();
+  }).catch(function (error) {
+    console.error(error);
+    showError(error.message || "Map failed to load.");
+    dom.resultLabel.textContent = "Failed to load map data.";
+    dom.detailTitle.textContent = "Load error";
+    dom.detailSubtitle.textContent = "The page loaded, but the map dataset did not.";
+  });
+}
+
+init();
