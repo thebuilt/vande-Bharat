@@ -1,18 +1,21 @@
 const CONFIG = {
+  geoUrl: "../MesoIndia/data/india-states-simplified.geojson",
+  railwayUrl: "./data/railway_network.geojson",
   routeUrl: "./data/trains.json",
-  indiaBounds: [[6.5, 68], [37.6, 97.5]]
+  width: 960,
+  height: 760
 };
 
 const state = {
   routes: [],
   filtered: [],
   selectedId: null,
-  map: null,
-  routeLayers: new Map(),
-  stationLayer: null
+  indiaGeo: null,
+  railwayGeo: null
 };
 
 const dom = {
+  map: d3.select("#route-map"),
   search: document.getElementById("search-input"),
   originFilter: document.getElementById("origin-filter"),
   destinationFilter: document.getElementById("destination-filter"),
@@ -26,6 +29,17 @@ const dom = {
   statStates: document.getElementById("stat-states"),
   statLongest: document.getElementById("stat-longest")
 };
+
+const projection = d3.geoMercator();
+const path = d3.geoPath(projection);
+
+const svg = dom.map;
+const root = svg.append("g");
+const stateLayer = root.append("g");
+const networkLayer = root.append("g");
+const routeLayer = root.append("g");
+const stationLayer = root.append("g");
+const labelLayer = root.append("g");
 
 function slugify(value) {
   return String(value || "")
@@ -210,92 +224,71 @@ function renderDetails() {
 }
 
 function renderRouteLines() {
-  state.routeLayers.forEach((layer) => layer.remove());
-  state.routeLayers.clear();
-
   const visibleIds = new Set(state.filtered.map((route) => route.id));
-  state.routes.forEach((route) => {
-    const latlngs = buildCurve(route.originCoords, route.destinationCoords);
-    const isVisible = visibleIds.has(route.id);
-    const isActive = route.id === state.selectedId;
-    const color = route.interstate ? "#c65d2e" : "#1a7f6b";
+  const line = d3.line()
+    .x((point) => projection([point[1], point[0]])[0])
+    .y((point) => projection([point[1], point[0]])[1])
+    .curve(d3.curveCatmullRom.alpha(0.5));
 
-    const layer = L.polyline(latlngs, {
-      color,
-      weight: isActive ? 6 : 3,
-      opacity: isVisible ? (isActive ? 1 : 0.78) : 0.08,
-      lineCap: "round"
-    })
-      .addTo(state.map)
-      .bindPopup(`
-        <div class="map-popup">
-          <strong>${route.origin} to ${route.destination}</strong>
-          <span>${route.trainNumber} · ${route.distanceKm} km · ${route.journeyTime}</span>
-        </div>
-      `);
+  const routes = routeLayer.selectAll("path")
+    .data(state.routes, (route) => route.id);
 
-    layer.on("click", () => selectRoute(route.id, true));
-    state.routeLayers.set(route.id, layer);
-  });
+  routes.join("path")
+    .attr("class", (route) => [
+      "route-map-line",
+      route.interstate ? "interstate" : "intrastate",
+      visibleIds.has(route.id) ? "" : "dimmed",
+      route.id === state.selectedId ? "active" : ""
+    ].filter(Boolean).join(" "))
+    .attr("d", (route) => line(buildCurve(route.originCoords, route.destinationCoords)))
+    .on("click", (_, route) => selectRoute(route.id));
 
-  renderStations(visibleIds);
+  routeLayer.selectAll("path")
+    .filter((route) => route.id === state.selectedId)
+    .raise();
+
+  renderStations();
 }
 
-function renderStations(visibleIds) {
-  if (state.stationLayer) {
-    state.stationLayer.remove();
+function renderStations() {
+  const selectedRoute = state.routes.find((route) => route.id === state.selectedId);
+  if (!selectedRoute) {
+    stationLayer.selectAll("*").remove();
+    labelLayer.selectAll("*").remove();
+    return;
   }
 
-  const stationMap = new Map();
+  const stations = [
+    { name: selectedRoute.origin, coords: selectedRoute.originCoords, anchor: "start" },
+    { name: selectedRoute.destination, coords: selectedRoute.destinationCoords, anchor: "end" }
+  ].map((station) => ({
+    ...station,
+    point: projection([station.coords[1], station.coords[0]])
+  }));
 
-  state.filtered.forEach((route) => {
-    [
-      { name: route.origin, coords: route.originCoords },
-      { name: route.destination, coords: route.destinationCoords }
-    ].forEach((station) => {
-      if (!stationMap.has(station.name)) {
-        stationMap.set(station.name, station);
-      }
-    });
-  });
+  stationLayer.selectAll("circle")
+    .data(stations, (station) => station.name)
+    .join("circle")
+    .attr("class", "station-node")
+    .attr("r", 5)
+    .attr("cx", (station) => station.point[0])
+    .attr("cy", (station) => station.point[1]);
 
-  state.stationLayer = L.layerGroup();
-
-  [...stationMap.values()].forEach((station) => {
-    L.circleMarker(station.coords, {
-      radius: 4,
-      color: "#364239",
-      weight: 1,
-      fillColor: "#fffaf3",
-      fillOpacity: 1
-    })
-      .bindTooltip(station.name, {
-        direction: "top",
-        offset: [0, -4],
-        className: "station-tooltip"
-      })
-      .addTo(state.stationLayer);
-  });
-
-  state.stationLayer.addTo(state.map);
+  labelLayer.selectAll("text")
+    .data(stations, (station) => station.name)
+    .join("text")
+    .attr("class", "selected-station-label")
+    .attr("x", (station) => station.point[0] + (station.anchor === "start" ? 8 : -8))
+    .attr("y", (station) => station.point[1] - 8)
+    .attr("text-anchor", (station) => station.anchor === "start" ? "start" : "end")
+    .text((station) => station.name);
 }
 
-function focusMap(route) {
-  if (!route) return;
-  const bounds = L.latLngBounds([route.originCoords, route.destinationCoords]);
-  state.map.fitBounds(bounds.pad(0.8), { animate: true, duration: 0.6 });
-}
-
-function selectRoute(routeId, shouldFocusMap = false) {
+function selectRoute(routeId) {
   state.selectedId = routeId;
   renderRouteList();
   renderRouteLines();
   renderDetails();
-
-  if (shouldFocusMap) {
-    const route = state.routes.find((entry) => entry.id === routeId);
-    focusMap(route);
-  }
 }
 
 function wireEvents() {
@@ -313,22 +306,31 @@ function wireEvents() {
 }
 
 async function init() {
-  const routes = await fetch(CONFIG.routeUrl).then((response) => response.json());
+  const [indiaGeo, railwayGeo, routes] = await Promise.all([
+    fetch(CONFIG.geoUrl).then((response) => response.json()),
+    fetch(CONFIG.railwayUrl).then((response) => response.json()),
+    fetch(CONFIG.routeUrl).then((response) => response.json())
+  ]);
 
+  state.indiaGeo = indiaGeo;
+  state.railwayGeo = railwayGeo;
   state.routes = routes.map(enrichRoute);
   state.filtered = [...state.routes];
   state.selectedId = state.routes[0]?.id || null;
-  state.map = L.map("route-map", {
-    zoomControl: true,
-    minZoom: 4,
-    maxZoom: 8,
-    scrollWheelZoom: true
-  });
-  state.map.fitBounds(CONFIG.indiaBounds);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: "&copy; OpenStreetMap contributors"
-  }).addTo(state.map);
+
+  projection.fitExtent([[24, 24], [CONFIG.width - 24, CONFIG.height - 24]], indiaGeo);
+
+  stateLayer.selectAll("path")
+    .data(indiaGeo.features)
+    .join("path")
+    .attr("class", "state-path")
+    .attr("d", path);
+
+  networkLayer.selectAll("path")
+    .data(railwayGeo.features)
+    .join("path")
+    .attr("class", "rail-network-path")
+    .attr("d", path);
 
   populateFilters(state.routes);
   setSummaryStats(state.routes);
