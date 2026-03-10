@@ -817,9 +817,9 @@
     "index": 38,
     "trainNumber": "20981/82",
     "origin": "Udaipur City",
-    "destination": "Agar Cantt.",
+    "destination": "Agra Cantt.",
     "originState": "Rajasthan",
-    "destinationState": "Madhya Pradesh",
+    "destinationState": "Uttar Pradesh",
     "distanceKm": null,
     "journeyTime": "8h 45m",
     "daysOfService": "M, Th, Sa",
@@ -830,8 +830,8 @@
       73.7087
     ],
     "destinationCoords": [
-      23.7118,
-      76.0157
+      27.1577,
+      77.989
     ],
     "source": "Uploaded VandeBharatTrains.pdf"
   },
