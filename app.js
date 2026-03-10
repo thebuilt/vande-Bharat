@@ -1,16 +1,18 @@
 const CONFIG = {
-  geoUrl: "../MesoIndia/data/india-states-simplified.geojson",
-  routeUrl: "./data/trains.json"
+  routeUrl: "./data/trains.json",
+  indiaBounds: [[6.5, 68], [37.6, 97.5]]
 };
 
 const state = {
   routes: [],
   filtered: [],
-  selectedId: null
+  selectedId: null,
+  map: null,
+  routeLayers: new Map(),
+  stationLayer: null
 };
 
 const dom = {
-  map: d3.select("#route-map"),
   search: document.getElementById("search-input"),
   originFilter: document.getElementById("origin-filter"),
   destinationFilter: document.getElementById("destination-filter"),
@@ -24,18 +26,6 @@ const dom = {
   statStates: document.getElementById("stat-states"),
   statLongest: document.getElementById("stat-longest")
 };
-
-const width = 960;
-const height = 760;
-const projection = d3.geoMercator();
-const path = d3.geoPath(projection);
-
-const svg = dom.map;
-const g = svg.append("g");
-const stateLayer = g.append("g").attr("class", "state-layer");
-const routeLayer = g.append("g").attr("class", "route-layer");
-const nodeLayer = g.append("g").attr("class", "node-layer");
-const labelLayer = g.append("g").attr("class", "label-layer");
 
 function slugify(value) {
   return String(value || "")
@@ -68,22 +58,17 @@ function enrichRoute(route) {
 }
 
 function buildCurve(startPoint, endPoint) {
-  const [x1, y1] = startPoint;
-  const [x2, y2] = endPoint;
-  const mx = (x1 + x2) / 2;
-  const my = (y1 + y2) / 2;
-  const dx = x2 - x1;
-  const dy = y2 - y1;
+  const [lat1, lon1] = startPoint;
+  const [lat2, lon2] = endPoint;
+  const mx = (lat1 + lat2) / 2;
+  const my = (lon1 + lon2) / 2;
+  const dx = lat2 - lat1;
+  const dy = lon2 - lon1;
   const norm = Math.max(Math.hypot(dx, dy), 1);
-  const curvature = Math.min(60, Math.max(24, norm * 0.12));
+  const curvature = Math.min(2.4, Math.max(0.7, norm * 0.16));
   const cx = mx - (dy / norm) * curvature;
   const cy = my + (dx / norm) * curvature;
-  return `M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`;
-}
-
-function routePoint(route, key) {
-  const coords = key === "origin" ? route.originCoords : route.destinationCoords;
-  return projection([coords[1], coords[0]]);
+  return [startPoint, [cx, cy], endPoint];
 }
 
 function setSummaryStats(routes) {
@@ -225,34 +210,45 @@ function renderDetails() {
 }
 
 function renderRouteLines() {
+  state.routeLayers.forEach((layer) => layer.remove());
+  state.routeLayers.clear();
+
   const visibleIds = new Set(state.filtered.map((route) => route.id));
+  state.routes.forEach((route) => {
+    const latlngs = buildCurve(route.originCoords, route.destinationCoords);
+    const isVisible = visibleIds.has(route.id);
+    const isActive = route.id === state.selectedId;
+    const color = route.interstate ? "#c65d2e" : "#1a7f6b";
 
-  const lines = routeLayer.selectAll("path")
-    .data(state.routes, (route) => route.id)
-    .join("path")
-    .attr("class", (route) => [
-      "route-map-line",
-      route.interstate ? "interstate" : "intrastate",
-      visibleIds.has(route.id) ? "" : "dimmed",
-      route.id === state.selectedId ? "active" : ""
-    ].filter(Boolean).join(" "))
-    .attr("d", (route) => buildCurve(routePoint(route, "origin"), routePoint(route, "destination")))
-    .on("click", (_, route) => selectRoute(route.id));
+    const layer = L.polyline(latlngs, {
+      color,
+      weight: isActive ? 6 : 3,
+      opacity: isVisible ? (isActive ? 1 : 0.78) : 0.08,
+      lineCap: "round"
+    })
+      .addTo(state.map)
+      .bindPopup(`
+        <div class="map-popup">
+          <strong>${route.origin} to ${route.destination}</strong>
+          <span>${route.trainNumber} · ${route.distanceKm} km · ${route.journeyTime}</span>
+        </div>
+      `);
 
-  lines.selectAll("title")
-    .data((route) => [route])
-    .join("title")
-    .text((route) => `${route.trainNumber}: ${route.origin} to ${route.destination}`);
+    layer.on("click", () => selectRoute(route.id, true));
+    state.routeLayers.set(route.id, layer);
+  });
 
-  routeLayer.selectAll("path")
-    .filter((route) => route.id === state.selectedId)
-    .raise();
+  renderStations(visibleIds);
 }
 
-function renderStations() {
+function renderStations(visibleIds) {
+  if (state.stationLayer) {
+    state.stationLayer.remove();
+  }
+
   const stationMap = new Map();
 
-  state.routes.forEach((route) => {
+  state.filtered.forEach((route) => {
     [
       { name: route.origin, coords: route.originCoords },
       { name: route.destination, coords: route.destinationCoords }
@@ -263,33 +259,43 @@ function renderStations() {
     });
   });
 
-  const stations = [...stationMap.values()].map((station) => ({
-    ...station,
-    point: projection([station.coords[1], station.coords[0]])
-  }));
+  state.stationLayer = L.layerGroup();
 
-  nodeLayer.selectAll("circle")
-    .data(stations, (station) => station.name)
-    .join("circle")
-    .attr("class", "station-node")
-    .attr("r", 3.8)
-    .attr("cx", (station) => station.point[0])
-    .attr("cy", (station) => station.point[1]);
+  [...stationMap.values()].forEach((station) => {
+    L.circleMarker(station.coords, {
+      radius: 4,
+      color: "#364239",
+      weight: 1,
+      fillColor: "#fffaf3",
+      fillOpacity: 1
+    })
+      .bindTooltip(station.name, {
+        direction: "top",
+        offset: [0, -4],
+        className: "station-tooltip"
+      })
+      .addTo(state.stationLayer);
+  });
 
-  labelLayer.selectAll("text")
-    .data(stations, (station) => station.name)
-    .join("text")
-    .attr("class", "station-label")
-    .attr("x", (station) => station.point[0] + 6)
-    .attr("y", (station) => station.point[1] - 6)
-    .text((station) => station.name);
+  state.stationLayer.addTo(state.map);
 }
 
-function selectRoute(routeId) {
+function focusMap(route) {
+  if (!route) return;
+  const bounds = L.latLngBounds([route.originCoords, route.destinationCoords]);
+  state.map.fitBounds(bounds.pad(0.8), { animate: true, duration: 0.6 });
+}
+
+function selectRoute(routeId, shouldFocusMap = false) {
   state.selectedId = routeId;
   renderRouteList();
   renderRouteLines();
   renderDetails();
+
+  if (shouldFocusMap) {
+    const route = state.routes.find((entry) => entry.id === routeId);
+    focusMap(route);
+  }
 }
 
 function wireEvents() {
@@ -307,26 +313,25 @@ function wireEvents() {
 }
 
 async function init() {
-  const [indiaGeo, routes] = await Promise.all([
-    fetch(CONFIG.geoUrl).then((response) => response.json()),
-    fetch(CONFIG.routeUrl).then((response) => response.json())
-  ]);
+  const routes = await fetch(CONFIG.routeUrl).then((response) => response.json());
 
   state.routes = routes.map(enrichRoute);
   state.filtered = [...state.routes];
   state.selectedId = state.routes[0]?.id || null;
-
-  projection.fitExtent([[24, 24], [width - 24, height - 24]], indiaGeo);
-
-  stateLayer.selectAll("path")
-    .data(indiaGeo.features)
-    .join("path")
-    .attr("class", "state-path")
-    .attr("d", path);
+  state.map = L.map("route-map", {
+    zoomControl: true,
+    minZoom: 4,
+    maxZoom: 8,
+    scrollWheelZoom: true
+  });
+  state.map.fitBounds(CONFIG.indiaBounds);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(state.map);
 
   populateFilters(state.routes);
   setSummaryStats(state.routes);
-  renderStations();
   renderRouteList();
   renderRouteLines();
   renderDetails();
