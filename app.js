@@ -38,15 +38,19 @@ var layers = {
   railways: null,
   routes: null,
   stations: null,
-  labels: null,
-  viewport: null
+  labels: null
 };
 
 var zoomState = {
-  scale: 1,
-  min: 1,
-  max: 6,
-  step: 1.25
+  baseWidth: 960,
+  baseHeight: 760,
+  width: 960,
+  height: 760,
+  x: 0,
+  y: 0,
+  minScale: 1,
+  maxScale: 8,
+  step: 1.35
 };
 
 function svgEl(tag, attrs) {
@@ -262,16 +266,89 @@ function clearLayer(node) {
   }
 }
 
-function applyZoom() {
-  if (!layers.viewport) {
-    return;
-  }
-  layers.viewport.setAttribute("transform", "scale(" + zoomState.scale + ")");
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
 }
 
-function setZoom(nextScale) {
-  zoomState.scale = Math.max(zoomState.min, Math.min(zoomState.max, nextScale));
+function applyZoom() {
+  dom.map.setAttribute(
+    "viewBox",
+    zoomState.x + " " + zoomState.y + " " + zoomState.width + " " + zoomState.height
+  );
+}
+
+function currentScale() {
+  return zoomState.baseWidth / zoomState.width;
+}
+
+function selectedRouteCenter() {
+  var route = state.routes.find(function (entry) {
+    return entry.id === state.selectedId;
+  });
+
+  if (!route) {
+    return {
+      x: zoomState.baseWidth / 2,
+      y: zoomState.baseHeight / 2
+    };
+  }
+
+  return {
+    x: (route.projected.origin[0] + route.projected.destination[0]) / 2,
+    y: (route.projected.origin[1] + route.projected.destination[1]) / 2
+  };
+}
+
+function setZoomWindow(nextWidth, nextHeight, centerX, centerY) {
+  zoomState.width = clamp(nextWidth, zoomState.baseWidth / zoomState.maxScale, zoomState.baseWidth);
+  zoomState.height = clamp(nextHeight, zoomState.baseHeight / zoomState.maxScale, zoomState.baseHeight);
+  zoomState.x = clamp(centerX - (zoomState.width / 2), 0, zoomState.baseWidth - zoomState.width);
+  zoomState.y = clamp(centerY - (zoomState.height / 2), 0, zoomState.baseHeight - zoomState.height);
   applyZoom();
+}
+
+function zoomToCenter(factor) {
+  var center = selectedRouteCenter();
+  setZoomWindow(zoomState.width / factor, zoomState.height / factor, center.x, center.y);
+}
+
+function resetZoom() {
+  zoomState.width = zoomState.baseWidth;
+  zoomState.height = zoomState.baseHeight;
+  zoomState.x = 0;
+  zoomState.y = 0;
+  applyZoom();
+}
+
+function zoomToRoute(routeId) {
+  var route = state.routes.find(function (entry) {
+    return entry.id === routeId;
+  });
+  var minX;
+  var maxX;
+  var minY;
+  var maxY;
+  var centerX;
+  var centerY;
+  var width;
+  var height;
+  var padding;
+
+  if (!route) {
+    return;
+  }
+
+  minX = Math.min(route.projected.origin[0], route.projected.destination[0]);
+  maxX = Math.max(route.projected.origin[0], route.projected.destination[0]);
+  minY = Math.min(route.projected.origin[1], route.projected.destination[1]);
+  maxY = Math.max(route.projected.origin[1], route.projected.destination[1]);
+  padding = 80;
+  width = Math.max(160, (maxX - minX) + (padding * 2));
+  height = Math.max(160, (maxY - minY) + (padding * 2));
+  centerX = (minX + maxX) / 2;
+  centerY = (minY + maxY) / 2;
+
+  setZoomWindow(width, height, centerX, centerY);
 }
 
 function renderRouteLines() {
@@ -342,6 +419,10 @@ function selectRoute(routeId) {
   renderRouteList();
   renderRouteLines();
   renderDetails();
+
+  if (currentScale() > 1) {
+    zoomToRoute(routeId);
+  }
 }
 
 function wireEvents() {
@@ -356,15 +437,15 @@ function wireEvents() {
   });
 
   dom.zoomIn.addEventListener("click", function () {
-    setZoom(zoomState.scale * zoomState.step);
+    zoomToCenter(zoomState.step);
   });
 
   dom.zoomOut.addEventListener("click", function () {
-    setZoom(zoomState.scale / zoomState.step);
+    zoomToCenter(1 / zoomState.step);
   });
 
   dom.zoomReset.addEventListener("click", function () {
-    setZoom(1);
+    resetZoom();
   });
 
   dom.reset.addEventListener("click", function () {
@@ -373,27 +454,31 @@ function wireEvents() {
     dom.destinationFilter.value = "";
     dom.mapMode.value = "all";
     state.mapMode = "all";
-    setZoom(1);
+    resetZoom();
     applyFilters();
   });
 }
 
 function initSvg(renderData) {
+  zoomState.baseWidth = renderData.width;
+  zoomState.baseHeight = renderData.height;
+  zoomState.width = renderData.width;
+  zoomState.height = renderData.height;
+  zoomState.x = 0;
+  zoomState.y = 0;
   dom.map.setAttribute("viewBox", "0 0 " + renderData.width + " " + renderData.height);
 
-  layers.viewport = svgEl("g", {});
   layers.states = svgEl("g", {});
   layers.railways = svgEl("g", {});
   layers.routes = svgEl("g", {});
   layers.stations = svgEl("g", {});
   layers.labels = svgEl("g", {});
 
-  dom.map.appendChild(layers.viewport);
-  layers.viewport.appendChild(layers.states);
-  layers.viewport.appendChild(layers.railways);
-  layers.viewport.appendChild(layers.routes);
-  layers.viewport.appendChild(layers.stations);
-  layers.viewport.appendChild(layers.labels);
+  dom.map.appendChild(layers.states);
+  dom.map.appendChild(layers.railways);
+  dom.map.appendChild(layers.routes);
+  dom.map.appendChild(layers.stations);
+  dom.map.appendChild(layers.labels);
 
   renderData.states.forEach(function (entry) {
     layers.states.appendChild(svgEl("path", {
